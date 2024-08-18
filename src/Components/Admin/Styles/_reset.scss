@@ -1,0 +1,117 @@
+/* Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body */
+body {
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    /* 16px */
+    color: #333;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+/* Lists */
+ul,
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin: 0;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+    /* Ensure link color inherits from parent */
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.5rem;
+    /* 8px */
+    border-bottom: 1px solid #ddd;
+}
+
+/* Forms */
+input,
+select,
+textarea {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    /* 8px */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
+}
+
+/* Accessibility */
+:focus {
+    outline: 2px solid #007bff;
+    /* Outline color for focus states */
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}

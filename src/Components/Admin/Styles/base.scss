@@ -1,0 +1,14 @@
+@use 'root';
+@use 'reset';
+@use 'utilities';
+
+.app{
+    background-color: var(--clr-grey-secondary);
+}
+
+.box{
+    font-family: var(--ff-main);
+    width: 500px;
+    height: 500px;
+    background-image: var(--grad-ps-rad);
+}

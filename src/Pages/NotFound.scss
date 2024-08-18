@@ -1,0 +1,13 @@
+.notfound{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--clr-grey-secondary);
+    color: var(--clr-white);
+    display: grid;
+    place-content: center;
+}
+
+h1{
+    font-family: var(--ff-main);
+    font-size: 3rem;
+}

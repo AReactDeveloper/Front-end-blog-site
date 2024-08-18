@@ -1,0 +1,135 @@
+src/
+│
+├── assets/
+│   ├── images/
+│   └── styles/
+│       ├── base.css
+│       ├── theme.css
+│       └── variables.css
+│
+├── components/
+│   ├── Admin/
+│   │   ├── AdminDashboard.js
+│   │   ├── AdminPosts.js
+│   │   ├──── AdminPostsAll.js
+│   │   ├──── AdminPostsAddNew.js
+│   │   ├──── AdminPostsCategories.js
+│   │   ├──── AdminPostsTags.js
+│   │   ├──── AdminMediaAll.js
+│   │   ├──── AdminMediaAddNew.js
+│   │   ├── AdminPages.js
+│   │   ├──── AdminPagesAll.js
+│   │   ├──── AdminPagesAddNew.js
+│   │   ├── AdminSettings.js
+│   │   ├──── AdminSettingsGeneral.js
+│   │   ├──── AdminSettingsAccount.js
+│   ├── Home/
+│   │   ├── HomePage.js
+│   │   ├── HomeHeader.js
+│   │   ├── HomeSidebar.js
+│   │   ├── HomeFooter.js
+│   │   ├── Articles/
+│   │   │   ├── ArticleList.js
+│   │   │   └── ArticleItem.js
+│   │   ├── Categories/
+│   │   │   ├── CategoryList.js
+│   │   ├── Tags/
+│   │   │   ├── TagList.js
+│   │   ├── Pages/
+│   │   │   └── SinglePage.js
+│   │   ├── Widgets/
+│   │   │   ├── WidgetList.js
+│   │   │   └── WidgetItem.js
+│   │   ├── ThemeSwitcher.js
+│   │   └── Layout/
+│   │       ├── MainLayout.js
+│   │       └── Sidebar.js
+│
+├── context/
+│   ├── AuthContext.js
+│   ├── ThemeContext.js
+│   └── SiteInfoContext.js
+│
+├── hooks/
+│   ├── useAuth.js
+│   ├── useSiteInfo.js
+│   ├── useTheme.js
+│
+├── pages/
+│   └── NotFoundPage.js
+│
+├── utils/
+│   └── api.js
+│
+├── App.js
+├── index.js
+└── routes.js
+
+
+Memory updated
+Heres a plan divided into smaller tasks for your React app development:
+
+1. Set Up Initial Project Structure
+Task: Set up the folder structure as described, and create basic placeholder files.
+Details:
+Ensure all directories (assets, components, context, hooks, pages, utils) are created.
+Create placeholder components and files (e.g., App.js, index.js, routes.js).
+2. Implement Theming System
+Task: Create and implement the theme engine.
+Details:
+Define CSS variables in variables.css.
+Create light and dark themes in theme.css.
+Implement the ThemeContext.js in the context/ folder and provide theme toggling logic.
+Use useTheme.js custom hook for theme management across components.
+Create ThemeSwitcher.js component and integrate it into the Home layout.
+3. Develop the Authentication Flow
+Task: Implement authentication logic and UI.
+Details:
+Implement AuthContext.js to handle authentication state.
+Create useAuth.js custom hook for authentication actions like login, logout, and session management.
+Set up routes for protected and public pages in routes.js.
+4. Build Admin Components
+Task: Develop components under the Admin/ directory.
+Details:
+Start with AdminDashboard.js and other top-level admin components.
+Break down into sub-components like AdminPostsAll.js, AdminSettingsGeneral.js, etc.
+Ensure integration with the API for CRUD operations using utils/api.js.
+Implement navigation between different admin sections.
+5. Develop Home Components
+Task: Build the HomePage.js and its subcomponents.
+Details:
+Start with MainLayout.js and HomeHeader.js, HomeSidebar.js, HomeFooter.js.
+Build out feature-specific components like ArticleList.js, CategoryList.js, TagList.js.
+Develop the widgets (WidgetList.js, WidgetItem.js) for displaying dynamic content.
+Ensure components are styled using the variables defined in theme.css.
+6. Integrate Site Information
+Task: Manage site-wide information using context and hooks.
+Details:
+Implement SiteInfoContext.js for handling global site information.
+Create a useSiteInfo.js hook to easily access and update site data across components.
+Display site info dynamically in components like HomeHeader.js.
+7. Implement Routing
+Task: Set up routing for the application.
+Details:
+Define all necessary routes in routes.js.
+Ensure proper navigation between admin and home components.
+Implement a fallback NotFoundPage.js for undefined routes.
+8. Test and Optimize
+Task: Perform testing and optimization across the app.
+Details:
+Test all components and their interactions.
+Optimize code for performance (e.g., lazy loading components, minimizing re-renders).
+Ensure responsive design and theming work across different devices and browsers.
+9. Final Touches and Deployment
+Task: Prepare the app for production and deploy.
+Details:
+Finalize UI/UX, remove console logs, and handle any edge cases.
+Set up build scripts and deploy the app to a server or hosting service.
+Monitor the app post-deployment for any issues.
+By following this structured plan, you can tackle each part of the project systematically, ensuring a smooth development process.
+
+
+
+
+
+
