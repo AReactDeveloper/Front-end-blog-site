@@ -3,9 +3,12 @@ import Sidebar from '../SideBar/Sidebar'
 import './../Styles/base.scss';
 import './dashboard.scss';
 import { Outlet } from 'react-router-dom';
+import NavBar from '../Navbar/NavBar';
 
 export default function Dashboard() {
   return (
+    <>
+    <NavBar />
     <div className='dashboard'>
       <div className="grid-item">
         <Sidebar />
@@ -14,5 +17,6 @@ export default function Dashboard() {
         <Outlet />
       </div>
     </div>
+    </>
   )
 }

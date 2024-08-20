@@ -1,6 +1,7 @@
 @use 'root';
 @use 'reset';
 @use 'utilities';
+@use 'responsiveTable';
 
 .app{
     background-color: var(--clr-grey-secondary);

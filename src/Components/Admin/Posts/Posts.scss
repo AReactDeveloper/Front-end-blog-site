@@ -1,0 +1,12 @@
+.posts{
+    padding: 20px;
+
+    &__header{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    &__list{
+        margin-top: 20px;
+    }
+}
