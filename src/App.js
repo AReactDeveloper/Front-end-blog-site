@@ -4,13 +4,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext.jsx';
+import { ArticleProvider } from './context/ArticleContext.jsx';
 
 
 export default function App() {
 
   return (
       <AuthProvider>
-        <RouterProvider router={router} />
+        <ArticleProvider>
+          <RouterProvider router={router} />
+        </ArticleProvider>
       </AuthProvider>
   )
 }

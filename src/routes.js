@@ -8,8 +8,13 @@ import Posts from "./Components/Admin/Posts/Posts";
 import List from "./Components/Admin/Posts/L.ist";
 import Add from "./Components/Admin/Posts/Add";
 import Login from "./Components/Home/Login";
+import ProtectedRoute from "./Utils/ProtectedRoute";
+import CategoryList from "./Components/Admin/Posts/CategoryList";
+import TagList from "./Components/Admin/Posts/TagList";
+
 
 export const router = createBrowserRouter([
+  
   {
     path: "/login",
     element: <Login />,
@@ -17,12 +22,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <>dfgfgd</>,
+    element: <>place holder</>,
     errorElement: <NotFound />
   },
   {
     path: "/dashboard",
-    element: <Dashboard/>,
+    element: <ProtectedRoute ><Dashboard /></ProtectedRoute>,
     children: [
       {
         index:true,
@@ -39,6 +44,14 @@ export const router = createBrowserRouter([
           {
             path: 'add',
             element: <Add />
+          },
+          {
+            path: 'categories',
+            element: <CategoryList />
+          },
+          {
+            path: 'tags',
+            element: <TagList />
           }
         ]
       },

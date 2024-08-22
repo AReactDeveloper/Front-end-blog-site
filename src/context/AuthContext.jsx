@@ -6,57 +6,60 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // Start with true to handle initial load
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        //get user
+        // Fetch user data on component mount
         getUser();
-        
     }, []);
 
-    //csrf;
-    const login = async (email,password) =>{
-        const res = await axiosInstance.post('/api/login',{
-        email,
-        password
-        });
-        localStorage.setItem('sanctum_token',res.data.token)
-        await getUser(); //as an update
-        setIsAuth(true);
-        return res
-    }
-
-    const getUser = async () => {
-        const user = await axiosInstance.get('/api/user')
-        .then(response => {
-            console.log('User Data:', response.data);
-            setIsAuth(true)
-            return response.data;
-        })
-        .catch(error => {
-            console.error('Error fetching user:', error);
-        });
-        setUser(user);
-
+    const login = async (email, password) => {
+        setIsLoading(true); // Start loading
+        try {
+            const res = await axiosInstance.post('/api/login', { email, password });
+            localStorage.setItem('sanctum_token', res.data.token);
+            await getUser();
+            setIsAuth(true);
+            setError(''); // Clear error on successful login
+        } catch (err) {
+            setError(err.response?.data?.messages || 'Login failed');
+        } finally {
+            setIsLoading(false); // Stop loading after operation
+        }
     };
 
-   const logout = async () =>{
-    console.log("logging out")
-    await axiosInstance.post('/api/logout')
-      .then(response => {
-        console.log('loggoed out');
-        localStorage.removeItem('sanctum_token');
-        setIsAuth(false);
-        return response.data;
-      })
-      .catch(error => {
-        console.error('Error Logout:', error);
-      });
+    const getUser = async () => {
+        setIsLoading(true); // Start loading
+        try {
+            const response = await axiosInstance.get('/api/user');
+            setUser(response.data);
+            setIsAuth(true);
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            setIsAuth(false);
+            setUser(null);
+        } finally {
+            setIsLoading(false); // Stop loading after operation
+        }
+    };
 
-  }
-
+    const logout = async () => {
+        setIsLoading(true); // Start loading
+        try {
+            await axiosInstance.post('/api/logout');
+            localStorage.removeItem('sanctum_token');
+            setIsAuth(false);
+            setUser(null);
+        } catch (error) {
+            console.error('Error logging out:', error);
+        } finally {
+            setIsLoading(false); // Stop loading after operation
+        }
+    };
 
     return (
-        <AuthContext.Provider value={{ isAuth , user, login, logout , getUser }}>
+        <AuthContext.Provider value={{ isLoading, error, isAuth, user, login, logout, getUser }}>
             {children}
         </AuthContext.Provider>
     );

@@ -10,3 +10,21 @@
         margin-top: 20px;
     }
 }
+
+.posts__header{
+    padding-top: 20px ;
+}
+
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 40%;
+    margin: 20px auto;
+
+    & button{
+        margin: 0 5px;
+        background:linear-gradient(90deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
+    } 
+}

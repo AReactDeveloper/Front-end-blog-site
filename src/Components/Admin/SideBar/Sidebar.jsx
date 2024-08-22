@@ -6,9 +6,11 @@ import { IoMdPhotos } from 'react-icons/io';
 import { RiPagesLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import './sidebar.scss';
+import useAuth from '../../../Hooks/useAuth';
 
 // Sidebar data with icons, titles, and sublists
 const adminSidebarData = [
+    
     {
         icon: <AiFillDashboard />,
         title: 'Dashboard',
@@ -53,15 +55,13 @@ const adminSidebarData = [
 ];
 
 const AdminSidebar = () => {
+    const { logout } = useAuth();
     // State to keep track of which sidebar items are active
-    const [activeItem, setActiveItem] = useState({});
+    const [activeItem, setActiveItem] = useState(0);
 
     // Function to handle item clicks and toggle active state
     const handleClick = (index) => {
-        setActiveItem(prevState => ({
-            ...prevState,
-            [index]: !prevState[index] // Toggle the active state of the clicked item
-        }));
+        setActiveItem(index);
     }
 
     return (
@@ -78,7 +78,7 @@ const AdminSidebar = () => {
                             <span>{item.icon}{item.title}</span>
                             {/* Sublist that is conditionally displayed based on active state */}
                             <ul
-                                className={`adminSidebar__item__sublist ${activeItem[index] ? 'active' : ''}`}
+                                className={`adminSidebar__item__sublist ${index === activeItem ? 'active' : '' }`}
                             >
                                 {item.sublist.map((subitem, subIndex) => (
                                     <li
@@ -93,6 +93,7 @@ const AdminSidebar = () => {
                         </li>
                     ))}
                 </ul>
+                    <button onClick={() => logout()}>Logout User</button>
             </div>
         </div>
     );

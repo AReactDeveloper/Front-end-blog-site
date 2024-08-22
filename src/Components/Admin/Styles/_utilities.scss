@@ -365,3 +365,23 @@ th {
     display: flex;
     justify-content: space-around;
 }
+
+.login__btn {
+    background: linear-gradient(to right, var(--clr-secondary), var(--clr-primary));
+    /* Gradient from dark to primary color */
+    color: var(--clr-white);
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    /* Smooth transition for background and color */
+
+    &:hover {
+        background: linear-gradient(to right, var(--clr-primary), var(--clr-secondary));
+        /* Gradient on hover */
+        color: var(--clr-white);
+    }
+}
+
+.text_gray{
+    color: #bbb;
+}

@@ -1,11 +1,13 @@
-.adminSidebar{
+.adminSidebar {
     background-color: var(--clr-grey-primary);
     height: 100vh;
     color: var(--clr-white);
-    padding:  20px 0;
-    &__item{
+    padding: 20px 0;
+
+    &__item {
         cursor: pointer;
-        & span{
+
+        & span {
             background-color: var(--clr-primary);
             display: block;
             padding: 10px;
@@ -13,21 +15,25 @@
             align-items: center;
             gap: 5px;
         }
-        &__sublist{
-            margin-left:20px ;
+
+        &__sublist {
+            margin-left: 20px;
             display: none;
             height: 0px;
-            &__subitem{
+
+            &__subitem {
                 margin-block: 5px;
-                & a:hover{
+
+                & a:hover {
                     text-decoration: underline;
                 }
             }
         }
-    }
-}
 
-.active{
-    height: fit-content;
-    display: block;
+        // Show sublist if item is active
+    }
+    .active  {
+        display: block;
+        height: auto; // Or a specific height if needed
+    }
 }
