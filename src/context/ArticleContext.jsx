@@ -24,12 +24,8 @@ export const ArticleProvider = ({ children }) => {
             SetArticles(res.data)
             setloading(false);
         } catch (err) {
-            if(err.response.status == 404){
                 setErrror('something went wrong while fetching articles try again')
-            }else{
-                setErrror(err.response.data.message)
-            }
-            setloading(false)
+                setloading(false)   
         }
     }
 
@@ -40,11 +36,7 @@ export const ArticleProvider = ({ children }) => {
             SetCategories(res.data)
             setloading(false);
         } catch (err) {
-            if(err.response.status == 404){
-                setErrror('something went wrong while fetching categories try again')
-            }else{
-                setErrror(err.response.data.message)
-            }
+            setErrror('something went wrong while fetching categories try again')
             setloading(false)
         }
     }
@@ -56,12 +48,8 @@ export const ArticleProvider = ({ children }) => {
             SetTags(res.data)
             setloading(false);
         } catch (err) {
-            if(err.response.status == 404){
                 setErrror('something went wrong while fetching categories try again')
-            }else{
-                setErrror(err.response.data.message)
-            }
-            setloading(false)
+                setloading(false)
         }
     }
 
