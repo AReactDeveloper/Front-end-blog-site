@@ -5,11 +5,15 @@ import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import Spinner from '../spinner/Spinner';
+import axiosInstance from '../../../api/axiosInstance';
 
 export default function List() {
     const [postsCount, setPostsCount] = useState(5); // Number of posts per page
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const { articles, isLoading , tags } = useArticle();
+    const { articles, isLoading , tags, getPosts } = useArticle();
+
+    const [message , setMessage] = useState('');
+    const [error , setError] = useState('');
 
     // Calculate the number of pages
     const totalPages = Math.ceil(articles.length / postsCount);
@@ -19,12 +23,24 @@ export default function List() {
     const indexOfFirstArticle = indexOfLastArticle - postsCount;
     const renderedArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
 
-    console.log(articles)
+
+    //inital posts on mount
+    useEffect(()=>{
+        getPosts();
+    },[])
 
     // Update articles per page
     useEffect(() => {
         setCurrentPage(1); // Reset to page 1 when postsCount changes
     }, [postsCount]);
+
+    useEffect(()=>{
+        //clear error and message 
+        setTimeout(() => {
+            setError(null)
+            setMessage(null)
+        }, 2000);
+    },[error,message])
 
     // Handle page change
     const handlePageChange = (page) => {
@@ -36,14 +52,36 @@ export default function List() {
         setPostsCount(parseInt(e.target.value, 10));
     };
 
+    //handle delete post
+    const handleDelete = (id) =>{
+        window.confirm("Are you sure you want to delete this post ?") &&
+        
+        //request delete from server
+        axiosInstance
+        .delete(`/api/articles/${id}`)
+        .then((response) => {
+            getPosts();
+            if(response.status == 204){
+                setMessage('Article deleted')
+            }else{
+                setError('Article was not found')
+            }
+        })
+        .catch((error) => {
+            setError('Article was not found');
+        });
+    }
+
 
     if (isLoading) {
         return <Spinner />;
     }
 
-    console.log(tags)
 
     return (
+        <>
+            {message ? <p style={{color:'white', backgroundColor:'green' , padding:'20px'}}>{message}</p> : 'scdfsdfsdfsdf'}
+            {error ? <p style={{color:'white', backgroundColor:'red' , padding:'20px'}}>{error}</p> : 'scdfsdfsdfsdf'}
         <div className='posts__list'>
             <label htmlFor="articleCount">Articles To load : </label>
             <select onChange={handleSelect} name="articleCount" id="articleCount" value={postsCount}>
@@ -58,16 +96,24 @@ export default function List() {
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
+                            <th>Image</th>
                             <th>Tags</th>
                             <th>Date of Publish</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {renderedArticles.map(({ id, title, created_at , category , tags }) => (
+                        {renderedArticles.map(({ id, title, created_at , category , tags ,imgUrl}) => (
                             <tr key={id}>
                                 <td>{title}</td>
                                 <td><Link to={"/"}>{category?.title}</Link></td>
+                                <td>
+                                    {imgUrl ? 
+                                        <img style={{ width: 70, height: 70 }} src={imgUrl} alt="" />
+                                        :
+                                        <p className='text_gray'>No image available</p>
+                                    }
+                                </td>
                                 <td>
                                     {tags?.length > 0 ? (
                                     tags.map((tag) => (
@@ -80,8 +126,8 @@ export default function List() {
                                 <td>{new Date(created_at).toLocaleDateString()}</td>
                                 <td className='actions'>
                                     <Link className='fill-green'><IoEyeSharp /></Link>
-                                    <Link className='fill-blue'><MdEdit /></Link>
-                                    <Link className='fill-red'><FaTrash /></Link>
+                                    <Link to={`/dashboard/posts/edit/${id}`} className='fill-blue'><MdEdit /></Link>
+                                    <a onClick={()=> handleDelete(id)} className='fill-red'><FaTrash /></a>
                                 </td>
                             </tr>
                         ))}
@@ -114,5 +160,6 @@ export default function List() {
                 </button>
             </div>
         </div>
+    </>
     );
 }

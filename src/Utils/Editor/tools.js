@@ -82,7 +82,13 @@ const imageUpload = {
 
 const EDITOR_JS_TOOLS = {
   embed: Embed,
-  header: Header,
+  header: {
+    class:Header,
+    inlineToolbar: true, // Enable inline toolbar (e.g., bold, italic) for header block
+    config: {
+      placeholder: 'Enter a header'
+    }
+  },
   table: Table,
   list: List,
   warning: Warning,

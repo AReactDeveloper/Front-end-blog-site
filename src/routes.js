@@ -12,6 +12,7 @@ import ProtectedRoute from "./Utils/ProtectedRoute";
 import CategoryList from "./Components/Admin/Posts/CategoryList";
 import TagList from "./Components/Admin/Posts/TagList";
 import Home from "./Components/Home/Home";
+import Edit from "./Components/Admin/Posts/Edit";
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
           {
             path: 'add',
             element: <Add />
+          },
+          {
+            path: 'edit/:id',
+            element: <Edit />
           },
           {
             path: 'categories',

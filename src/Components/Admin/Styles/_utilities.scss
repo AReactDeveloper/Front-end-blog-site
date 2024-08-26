@@ -362,8 +362,9 @@ th {
 .fill-red  svg{fill: dodgerblue;}
 
 .actions{ //actions in posts table
-    display: flex;
-    justify-content: space-around;
+    & > * {
+        margin-right: 10px;
+    }
 }
 
 .login__btn {
@@ -384,4 +385,11 @@ th {
 
 .text_gray{
     color: #bbb;
+}
+.error{
+    background-color: rgb(247, 159, 159);
+    border: 1px solid red;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;    
 }

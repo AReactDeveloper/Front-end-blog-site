@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:9000', // Replace with your Laravel backend URL
+  baseURL: 'http://127.0.0.1:9000', // Replace with your Laravel backend URL
   withCredentials: true, // This allows cookies to be sent with requests
   withXSRFToken : true,
   headers: {

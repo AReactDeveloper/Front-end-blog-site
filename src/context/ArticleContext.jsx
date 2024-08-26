@@ -10,6 +10,7 @@ export const ArticleProvider = ({ children }) => {
     const [tags,SetTags] = useState();
     const [isLoading,setloading] = useState(true);
     const [error,setErrror] = useState('');
+    
 
     useEffect(() => {
         getPosts();
@@ -54,7 +55,7 @@ export const ArticleProvider = ({ children }) => {
     }
 
     return (
-        <ArticleContext.Provider value={{ error, articles , isLoading , categories , tags}}>
+        <ArticleContext.Provider value={{getPosts ,  error, articles , isLoading , categories , tags}}>
             {children}
         </ArticleContext.Provider>
     )
