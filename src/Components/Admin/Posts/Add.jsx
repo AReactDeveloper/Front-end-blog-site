@@ -40,7 +40,7 @@ export default function Add() {
   // State to manage form data including title, content, category, tags, and featured image
   const [formData, setFormData] = useState({
     title: '',
-    content: '', // Initially empty, will be updated with editorOutput
+    content: editorOutput, // Initially empty, will be updated with editorOutput
     category: null,
     tags: [], // Initialize as an empty array
     featuredImage: null
@@ -165,7 +165,7 @@ export default function Add() {
   // Create a FormData object for submission
   const data = new FormData();
   data.append('title', formData.title);
-  data.append('content', formData.content); // Ensure content is a string
+  data.append('content', editorOutput); // Ensure content is a string
   if(formData.category){
     data.append('category_id',formData.category.value);
   }
@@ -178,19 +178,23 @@ export default function Add() {
     data.append(`tags[${index}]`, tag.label);
   });
 
+  if(formData.title == '' || formData.content == ''){
+    setError("we require title and content fields")
+  }else{
+    try {
+      const response = await axiosInstance.post('/api/articles', data);
+      console.log('Response:', response);
+      navigate('/dashboard/posts');
+    } catch (error) {
+    //console.log(error)
+      console.log(error.response.data.error)
+      setError(error.response.data.error);
+    }
+  };
 
-  // Submit the form data using axios
-  try {
-    const response = await axiosInstance.post('/api/articles', data);
-    console.log('Response:', response);
-    navigate('/dashboard/posts');
-  } catch (error) {
-   //console.log(error)
-    console.log(error.response.data.error)
-    setError(error.response.data.error);
   }
-};
-
+  // Submit the form data using axios
+ 
 
   return (
     <div className='AddPost'>
@@ -207,9 +211,8 @@ export default function Add() {
         />
 
         <label htmlFor="content">Content:</label>
-        <MyEditor setEditorOutput={setEditorOutput} /> {/* Custom editor component */}
+        <MyEditor setEditorOutput={setEditorOutput}  /> {/* Custom editor component */}
         </div>
-
         <div className="sidePost">
           <div className="sidePost__card">
             <h3>Featured Image</h3>

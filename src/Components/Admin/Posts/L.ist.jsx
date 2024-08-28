@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useArticle from '../../../Hooks/useArticle';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
@@ -23,6 +23,15 @@ export default function List() {
     const indexOfFirstArticle = indexOfLastArticle - postsCount;
     const renderedArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
 
+    const location = useLocation();
+    let Routemessage = location.state?.message || '';
+
+
+    useEffect(()=>{
+        if(Routemessage){
+            setMessage(location.state?.message);
+        }
+    },[location.state?.message])
 
     //inital posts on mount
     useEffect(()=>{
@@ -80,8 +89,8 @@ export default function List() {
 
     return (
         <>
-            {message ? <p style={{color:'white', backgroundColor:'green' , padding:'20px'}}>{message}</p> : 'scdfsdfsdfsdf'}
-            {error ? <p style={{color:'white', backgroundColor:'red' , padding:'20px'}}>{error}</p> : 'scdfsdfsdfsdf'}
+            {message ? <p style={{color:'white', backgroundColor:'green' , padding:'20px'}}>{message}</p> : ''}
+            {error ? <p style={{color:'white', backgroundColor:'red' , padding:'20px'}}>{error}</p> : ''}
         <div className='posts__list'>
             <label htmlFor="articleCount">Articles To load : </label>
             <select onChange={handleSelect} name="articleCount" id="articleCount" value={postsCount}>

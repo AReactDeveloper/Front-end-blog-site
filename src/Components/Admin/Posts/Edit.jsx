@@ -1,263 +1,226 @@
 import React, { useEffect, useState } from 'react';
-import MyEditor from '../../../Utils/Editor/MyEditor'; // Import custom editor component
-import './Posts.scss'; // Import styles for the component
-import Select from 'react-select'; // Import Select component for categories
-import CreatableSelect from 'react-select/creatable'; // Import CreatableSelect component for tags
-import useArticle from './../../../Hooks/useArticle'; // Import custom hook for fetching categories and tags
-import axiosInstance from '../../../api/axiosInstance'; // Import axios instance for API requests
-import { useNavigate, useParams } from 'react-router-dom';
+import Select from 'react-select';  // Importing Select component for dropdowns
+import CreatableSelect from 'react-select/creatable';  // Importing CreatableSelect component for tag creation
+import { useParams, useNavigate, json } from 'react-router-dom';  // To access route parameters and navigate
+import './Posts.scss';  // Importing styles
+import MyEditor from '../../../Utils/Editor/MyEditor';  // Custom rich text editor
+import axiosInstance from '../../../api/axiosInstance';  // Axios instance for API calls
+import useArticle from '../../../Hooks/useArticle';  // Custom hook for fetching articles
+import Spinner from '../../Admin/spinner/Spinner';  // Spinner component
 
 export default function Edit() {
-  const { id } = useParams(); // Get post ID from URL
-  const navigate = useNavigate();
+    const { id } = useParams();  // Extracting the article ID from the URL
+    const navigate = useNavigate();  // Hook to navigate programmatically
 
-  // Initialize state
-  const [currentCat,SetCurrentCat] = useState();
-  const [imageId, setImageId] = useState('');
-  const [imageLoading, setImageLoading] = useState(false);
-  const [imgUpload, setImgUpload] = useState(true);
-  const [tagsOptions, setTagsOptions] = useState([]);
-  const [categoryOptions, setCategoryOptions] = useState([{ value: 0, label: 'Select Category' }]);
-  const [editorOutput, setEditorOutput] = useState('');
-  const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    category: null,
-    tags: [],
-    featuredImage: null
-  });
+    const { categories = [] , tags = []  } = useArticle();  // Fetching categories and tags using custom hook
+    const [error, setError] = useState(null);  // State for handling errors
+    const [imgUpload, setImgUpload] = useState(true);  // State for image upload toggle
+    const [imageLoading, setImageLoading] = useState(false);  // State for handling image loading status
+    const [tagsOptions, setTagsOptions] = useState([]);  // State to store tag options for the Select component
+    const [categoryOptions, setCategoryOptions] = useState([{ value: 0, label: 'Select Category' }]);  // Initial state for category options
+    const [postTags, setPostTags] = useState([]);  // State for selected tags
+    const [postCategory, setPostCategory] = useState(null);  // State for selected category
 
-  const { categories, isLoading, tags } = useArticle();
+    const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch post data when component mounts
-  useEffect(() => {
-    const fetchPostData = async () => {
-      try {
-        const response = await axiosInstance.get(`/api/articles/${id}`);
-        const post = response.data;
-        console.log(post)
-
-        setFormData({
-            title: post.title || '',
-            content: post.content || '',
-            category: post.category_id ? { value: post.category_id, label: post.category?.title } : null,
-            tags: post.tags ? post.tags.map(tag => ({ value: tag.id, label: tag.title })) : [],
-            featuredImage: post.imgUrl || null
-        });
-        setImageId(post.imageId || '');
-        setEditorOutput(post.content || ''); // Update editor with existing content
-        setImgUpload(!!post.imgUrl);
-      } catch (error) {
-        console.log('Error fetching post data:', error.response.data);
-      }
-    };
-
-    fetchPostData();
-  }, [id]);
-
-    // Update category and tags options
-    useEffect(() => {
-
-        //set current tag
-        
-
-        if (!isLoading && categories) {
-            const updatedCategories = categories.map(cat => ({
-            value: cat.id,
-            label: cat.title
-            }));
-            setCategoryOptions(updatedCategories); // Update the category options
-            updatedCategories.map(cat=>{
-            if(cat == formData.category_id){
-                console.log(cat)
-                SetCurrentCat({value: cat.id, label: cat.title});
-            }
-        })
-        }
-
-        if (!isLoading && tags) {
-            const updatedTags = tags.map(tag => ({
-            value: tag.id,
-            label: tag.title
-            }));
-            setTagsOptions(updatedTags); // Update the tags options
-        }
-    }, [categories, isLoading, tags]);
-
-
-  // Handle category change
-  const handleCategoryChange = (selectedOption) => {
-    setFormData(prevData => ({
-      ...prevData,
-      category: selectedOption
-    }));
-  };
-
-  // Handle tags change
-  const handleTagsChange = (newValue) => {
-    setFormData(prevData => ({
-      ...prevData,
-      tags: newValue
-    }));
-  };
-
-  // Handle input change
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-    console.log(`Input Change - ${name}: ${value}`); // Debugging log
-  };
-
-  // Handle file change
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setImageLoading(true);
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        const response = await axiosInstance.post('/api/file', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-
-        setFormData(prevData => ({
-          ...prevData,
-          featuredImage: `http://localhost:9000${response.data.url}`
-        }));
-        setImageId(response.data.id);
-        setImgUpload(true);
-      } catch (error) {
-        console.log('Error uploading file:', error.response.data);
-      } finally {
-        setImageLoading(false);
-      }
-    }
-  };
-
-  // Handle image removal
-  const handleImageRemove = () => {
-    setImgUpload(false);
-    axiosInstance.delete(`/api/file/${imageId}`)
-      .then(() => {
-        setFormData(prevData => ({
-          ...prevData,
-          featuredImage: null
-        }));
-      })
-      .catch(error => {
-        console.log('Error removing image:', error.response.data);
-      });
-  };
-
-  // Handle form submission
-  const handleSave = async (e) => {
-    e.preventDefault();
-
-    const data = new FormData();
-    data.append('title', formData.title);
-    data.append('content', formData.content);
-    if (formData.category) {
-      data.append('category_id', formData.category.value);
-    }
-    if (formData.featuredImage) {
-      data.append('imgUrl', formData.featuredImage);
-    }
-    formData.tags.forEach((tag, index) => {
-      data.append(`tags[${index}]`, tag.label);
+    // State to manage form data
+    const [formData, setFormData] = useState({
+        title: '',
+        content: '',
+        featuredImage: '',
+        category: '',
+        tags: [],
     });
 
-    try {
-      await axiosInstance.put(`/api/articles/${id}`, data); // Use PUT for updating
-      navigate('/dashboard/posts');
-    } catch (error) {
-      console.log('Error updating article:', error.response.data.error);
-      setError(error.response.data.error);
-    }
-  };
+    // Fetching the article data based on ID and populating formData
+    useEffect(() => {
+        const fetchPost = async () => {
+            setIsLoading(true)
+            let post;
+            await axiosInstance.get(`/api/articles/${id}`)
+            .then(res => {
+                post = res.data;
+            }).catch(err => setError("fetching article failled try again"));
+            // Populate formData with fetched post data
+            setFormData({
+                title: post.title || '',
+                content: post.content === null ? '' : post.content,
+                featuredImage: post.imgUrl || '',
+                category: post.category_id || '',
+                tags: post.tags || [],
+            });
+            setIsLoading(false)
+            const selectedCategory = categories.find(cat => cat.id === post.category_id);
+            setPostCategory(selectedCategory ? { value: selectedCategory.id, label: selectedCategory.title } : null);
 
-  return (
-    <div className='AddPost'>
-      <form onSubmit={handleSave} className="form-group AddPost__form">
-        <div className="mainPost">
-          {error && <p className="error">{error}</p>}
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-          />
+            const selectedTags = tags.filter(tag => post.tags.some(postTag => postTag.id === tag.id))
+                .map(tag => ({ value: tag.id, label: tag.title }));
+                setPostTags(selectedTags);
+            }
+        fetchPost();
+    }, [id, categories, tags]);
 
-          <label htmlFor="content">Content:</label>
-          <MyEditor setEditorOutput={setEditorOutput} content={editorOutput} />
-        </div>
+    // Fetch categories and tags options when data is loaded
+    useEffect(() => {
+        if (!isLoading) {
+            const updatedCategories = categories.map(cat => ({
+                value: cat.id,
+                label: cat.title,
+            }));
+            setCategoryOptions([{ value: 0, label: 'Select Category' }, ...updatedCategories]);
 
-        <div className="sidePost">
-          <div className="sidePost__card">
-            <h3>Featured Image</h3>
-            <div className="sidePost__card__content">
-              {imgUpload ? (
-                <>
-                  <img style={{ width: '150px', height: 'auto' }} src={formData.featuredImage} alt="Featured" />
-                  <button onClick={handleImageRemove}>Remove</button>
-                </>
-              ) : (
-                <>
-                  {imageLoading ? <p>Loading ...</p> : (
+            const updatedTags = tags.map(tag => ({
+                value: tag.id,
+                label: tag.title,
+            }));
+            setTagsOptions(updatedTags);
+        }
+    }, [categories, tags, isLoading]);
+
+    // Handle changes in form inputs
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    // Handle changes in the editor content
+    const handleEditorChange = (content) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            content,
+        }));
+    };
+
+    // Handle category selection
+    const handleCategoryChange = (selectedOption) => {
+        setPostCategory(selectedOption);
+        setFormData((prevData) => ({
+            ...prevData,
+            category: selectedOption.value,  // Store only the ID of the selected category
+        }));
+    };
+
+    // Handle tag selection/creation
+    const handleTagsChange = (selectedOptions) => {
+        setPostTags(selectedOptions);
+        setFormData((prevData) => ({
+            ...prevData,
+            tags: selectedOptions.map(option => option.value),  // Store only the IDs of the selected tags
+        }));
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(formData.title == '' || formData.content == ''){
+            setError("we require title and content fields")
+        }else{
+            try {
+            const formDataToSend = {
+                ...formData,
+                tags: postTags.map(tag => tag.value),
+                category_id: postCategory ? postCategory.value : null,
+            };
+            await axiosInstance.put(`/api/articles/${id}`, formDataToSend);
+            navigate('/dashboard/posts',{
+                state: { message: 'Article was edited ....' },
+            });  // Navigate to posts page after successful update
+            } catch (err) {
+                console.error(err);
+                setError("Failed to update the article");
+            }
+        }
+    };
+    return (
+    isLoading ? (
+        <Spinner />
+    ) : (
+        <div className='AddPost'>
+            
+            <form className="form-group AddPost__form" onSubmit={handleSubmit}>
+                <div className="mainPost">
+                    {error && <p className="error">{error}</p>}
+                    
+                    <label htmlFor="title">Title:</label>
                     <input
-                      type="file"
-                      name="featuredImage"
-                      onChange={handleFileChange}
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleInputChange}  // Handling title input changes
                     />
-                  )}
-                </>
-              )}
-            </div>
-          </div>
 
-          <div className="sidePost__card">
-            <h3>Categories</h3>
-            <div className="sidePost__card__content">
-              <Select
-                options={categoryOptions}
-                onChange={handleCategoryChange}
-                value={currentCat}
-                placeholder="Select a category"
-              />
-            </div>
-          </div>
+                    <label htmlFor="content">Content:</label>
+                    <MyEditor 
+                            onChange={handleEditorChange} 
+                            content={formData.content} 
+                        />
+                </div>
 
-          <div className="sidePost__card">
-            <h3>Tags</h3>
-            <div className="sidePost__card__content">
-              <CreatableSelect
-                isMulti
-                options={tagsOptions}
-                value={formData.tags}
-                onChange={handleTagsChange}
-                placeholder="Type and press enter to add..."
-                components={{ DropdownIndicator: null }}
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    minHeight: '40px',
-                  }),
-                }}
-              />
-            </div>
-          </div>
+                <div className="sidePost">
+                    <div className="sidePost__card">
+                        <h3>Featured Image</h3>
+                        <div className="sidePost__card__content">
+                            {imgUpload ? (  // Conditional rendering based on image upload status
+                                <>
+                                    <img style={{ width: '100%', height: 'auto', padding: "10px" }} src={formData.featuredImage} alt="Featured" />
+                                    <button type="button" onClick={() => setImgUpload(false)}>Remove</button>
+                                </>
+                            ) : (
+                                <>
+                                    {imageLoading ? (
+                                        <p>Loading ...</p>
+                                    ) : (
+                                        <input
+                                            type="file"
+                                            name="featuredImage"
+                                            onChange={(e) => setFormData({ ...formData, featuredImage: e.target.files[0] })}  // Handling image upload
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="sidePost__card">
+                        <h3>Categories</h3>
+                        <div className="sidePost__card__content">
+                            <Select
+                                options={categoryOptions}  // Providing category options
+                                value={postCategory}  // Binding the category value
+                                onChange={handleCategoryChange}  // Handling category selection change
+                                placeholder="Select a category"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="sidePost__card">
+                        <h3>Tags</h3>
+                        <div className="sidePost__card__content">
+                            <CreatableSelect
+                                isMulti
+                                options={tagsOptions}  // Providing tag options
+                                value={postTags}  // Binding the tags value
+                                onChange={handleTagsChange}  // Handling tag selection/change
+                                placeholder="Type and press enter to add..."
+                                components={{ DropdownIndicator: null }}
+                                styles={{
+                                    control: (provided) => ({
+                                        ...provided,
+                                        minHeight: '40px',
+                                    }),
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <button type='submit'>Update Article</button>
+            </form>
         </div>
-        <button type='submit'>Update Article</button>
-      </form>
-    </div>
-  );
+    )
+);
+
 }
