@@ -75,9 +75,7 @@ const EditorComponent = ({ setEditorOutput, content }) => {
   }, [content]);
 
   return (
-    <div>
       <div id='editorjs'></div>
-    </div>
   );
 };
 

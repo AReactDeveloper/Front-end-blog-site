@@ -40,7 +40,7 @@ export default function Add() {
   // State to manage form data including title, content, category, tags, and featured image
   const [formData, setFormData] = useState({
     title: '',
-    content: editorOutput, // Initially empty, will be updated with editorOutput
+    content: '', // Initially empty, will be updated with editorOutput
     category: null,
     tags: [], // Initialize as an empty array
     featuredImage: null
@@ -71,6 +71,7 @@ export default function Add() {
 
   // Effect to update formData content when editorOutput changes
   useEffect(() => {
+    console.log(editorOutput)
     setFormData(prevData => ({
       ...prevData,
       content: editorOutput
@@ -160,37 +161,37 @@ export default function Add() {
 
   // Handle form submission
   const handleSave = async (e) => {
-  e.preventDefault();
-  
-  // Create a FormData object for submission
-  const data = new FormData();
-  data.append('title', formData.title);
-  data.append('content', editorOutput); // Ensure content is a string
-  if(formData.category){
-    data.append('category_id',formData.category.value);
-  }
-  if(formData.featuredImage) {
-    data.append('imgUrl', formData.featuredImage);
-  }
-  
-  // Handle tags: Append each tag as a separate field
-  formData.tags.forEach((tag, index) => {
-    data.append(`tags[${index}]`, tag.label);
-  });
-
-  if(formData.title == '' || formData.content == ''){
-    setError("we require title and content fields")
-  }else{
-    try {
-      const response = await axiosInstance.post('/api/articles', data);
-      console.log('Response:', response);
-      navigate('/dashboard/posts');
-    } catch (error) {
-    //console.log(error)
-      console.log(error.response.data.error)
-      setError(error.response.data.error);
+    e.preventDefault();
+    
+    // Create a FormData object for submission
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('content', editorOutput); // Ensure content is a string
+    if(formData.category){
+      data.append('category_id',formData.category.value);
     }
-  };
+    if(formData.featuredImage) {
+      data.append('imgUrl', formData.featuredImage);
+    }
+    
+    // Handle tags: Append each tag as a separate field
+    formData.tags.forEach((tag, index) => {
+      data.append(`tags[${index}]`, tag.label);
+    });
+
+    if(formData.title == '' || formData.content == ''){
+      setError("we require title and content fields")
+    }else{
+      try {
+        const response = await axiosInstance.post('/api/articles', data);
+        console.log('Response:', response);
+        navigate('/dashboard/posts');
+      } catch (error) {
+      //console.log(error)
+        console.log(error.response.data.error)
+        setError(error.response.data.error);
+      }
+    };
 
   }
   // Submit the form data using axios
