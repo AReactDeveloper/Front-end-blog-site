@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300;400;500;700&display=swap');
+
+// Font
+$ff-primary: "Ubuntu", sans-serif;
+$ff-secondary: 'Work Sans', sans-serif;  
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Font Sizes
+$font-size-xs: 0.75rem; // Extra small (12px)
+$font-size-sm: 0.875rem; // Small (14px)
+$font-size-md: 1rem; // Medium (16px)
+$font-size-lg: 1.25rem; // Large (20px)
+$font-size-xl: 1.5rem; // Extra large (24px)
+$font-size-xxl: 2rem; // Extra extra large (32px)
+
+// Line Heights
+$line-height-xs: 1.2; // Extra small
+$line-height-sm: 1.4; // Small
+$line-height-md: 1.5; // Medium
+$line-height-lg: 1.6; // Large
+$line-height-xl: 1.75; // Extra large
+
+// Heading Styles
+h1 {
+    font-family: $ff-secondary;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-lg;
+
+    @media (max-width: 768px) {
+        font-size: $font-size-xl;
+    }
+}
+
+h2 {
+    font-family: $ff-secondary;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-lg;
+
+    @media (max-width: 768px) {
+        font-size: $font-size-lg;
+    }
+}
+
+h3 {
+    font-family: $ff-secondary;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    line-height: $line-height-md;
+
+    @media (max-width: 768px) {
+        font-size: $font-size-md;
+    }
+}
+
+h4 {
+    font-family: $ff-secondary;
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    line-height: $line-height-md;
+
+    @media (max-width: 768px) {
+        font-size: $font-size-sm;
+    }
+}
+
+// Paragraphs
+p {
+    font-size: $font-size-md;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-md;
+
+    @media (max-width: 768px) {
+        font-size: $font-size-sm;
+    }
+}
+
+// Responsive Typography
+@media (min-width: 576px) {
+    h1 {
+        font-size: $font-size-xxl;
+    }
+
+    h2 {
+        font-size: $font-size-xl;
+    }
+
+    h3 {
+        font-size: $font-size-lg;
+    }
+
+    h4 {
+        font-size: $font-size-md;
+    }
+
+    p {
+        font-size: $font-size-md;
+    }
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: $font-size-xxl;
+    }
+
+    h2 {
+        font-size: $font-size-xl;
+    }
+
+    h3 {
+        font-size: $font-size-lg;
+    }
+
+    h4 {
+        font-size: $font-size-md;
+    }
+
+    p {
+        font-size: $font-size-md;
+    }
+}
+
+@media (min-width: 992px) {
+    h1 {
+        font-size: $font-size-xxl;
+    }
+
+    h2 {
+        font-size: $font-size-xl;
+    }
+
+    h3 {
+        font-size: $font-size-lg;
+    }
+
+    h4 {
+        font-size: $font-size-md;
+    }
+
+    p {
+        font-size: $font-size-md;
+    }
+}

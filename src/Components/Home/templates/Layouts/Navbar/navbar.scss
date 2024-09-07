@@ -1,0 +1,66 @@
+.home_navbar {
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        padding: 20px;
+        justify-content: space-between;
+        align-items: center;
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav_links {
+            ul {
+                display: flex;
+                gap: 20px;
+            }
+
+            a {
+                font-size: 20px;
+                font-weight: bold;
+
+                &:hover {
+                    color: blue;
+                }
+            }
+        }
+
+        .hamburger {
+            display: none;
+        }
+    }
+
+    // Responsive Styles
+    @media (max-width: 768px) {
+        .container {
+            .nav_links {
+                ul {
+                    box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 29px 0px;
+                    width: 100%;
+                    height: fit-content;
+                    background-color: white;
+                    position: absolute;
+                    top: 70px;
+                    left: 0;
+                    padding: 30px;
+                    flex-direction: column;
+                    display: none;
+                }
+
+                &.open ul {
+                    display: flex;
+                }
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+    }
+}

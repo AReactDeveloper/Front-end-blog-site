@@ -1,7 +1,12 @@
 import React from 'react'
+import Modal from '../Modal/Modal'
 
 export default function MainArea() {
   return (
-    <div>MainArea</div>
+    <div>
+      <Modal>
+        <div>MainArea</div>
+      </Modal>
+    </div>
   )
 }

@@ -1,0 +1,113 @@
+/* Box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Typography */
+body {
+    line-height: 1.5;
+    font-family: sans-serif;
+}
+
+/* Anchor tags */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Lists */
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Forms */
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Heading Tags */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+/* Blockquotes */
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+/* Horizontal Rules */
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+}
+
+/* Code Elements */
+code,
+pre {
+    font-family: monospace, monospace;
+}
+
+/* Articles */
+article {
+    display: block;
+}
+
+/* Sections */
+section {
+    display: block;
+}
+
+/* Divs */
+div {
+    display: block;
+}
+
+/* Address */
+address {
+    display: block;
+}
+
+/* Aside */
+aside {
+    display: block;
+}
+
+/* Main */
+main {
+    display: block;
+}

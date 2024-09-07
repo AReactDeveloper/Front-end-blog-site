@@ -6,6 +6,7 @@ import { FaTrash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import Spinner from '../spinner/Spinner';
 import axiosInstance from '../../../api/axiosInstance';
+import Table from '../Table/Table';
 
 export default function List() {
     const [postsCount, setPostsCount] = useState(5); // Number of posts per page
@@ -100,7 +101,7 @@ export default function List() {
             </select>
 
             <div className="responsive-table">
-                <table>
+                <Table>
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -141,7 +142,7 @@ export default function List() {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                    </Table>
             </div>
 
             {/* Pagination Controls */}

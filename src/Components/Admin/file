@@ -1,0 +1,48 @@
+src/
+│
+├── components/
+│   ├── Button/
+│   │   ├── Button.js
+│   │   └── Button.module.scss
+│   ├── Modal/
+│   │   ├── Modal.js
+│   │   └── Modal.module.scss
+│   ├── Form/
+│   │   ├── Form.js
+│   │   └── Form.module.scss
+│   ├── Notification/
+│   │   ├── Notification.js
+│   │   └── Notification.module.scss
+│   ├── Toast/
+│   │   ├── Toast.js
+│   │   └── Toast.module.scss
+│   ├── Card/
+│   │   ├── Card.js
+│   │   └── Card.module.scss
+│   ├── Pagination/
+│   │   ├── Pagination.js
+│   │   └── Pagination.module.scss
+│   ├── SideList/
+│   │   ├── SideList.js
+│   │   └── SideList.module.scss
+│   └── NavList/
+│       ├── NavList.js
+│       └── NavList.module.scss
+│
+├── scss/
+│   ├── abstracts/
+│   │   ├── _variables.scss
+│   │   ├── _mixins.scss
+│   │   ├── _functions.scss
+│   │   └── _placeholders.scss
+│   ├── base/
+│   │   ├── _reset.scss
+│   │   ├── _global.scss
+│   │   └── _typography.scss
+│   ├── layout/
+│   │   ├── _grid.scss
+│   │   └── _container.scss
+│   └── utilities/
+│       ├── _spacing.scss
+│       ├── _colors.scss
+│       └── _helpers.scss

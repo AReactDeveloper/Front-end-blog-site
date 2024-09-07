@@ -1,0 +1,25 @@
+body{
+    background-color: #f2f2f2;
+}
+
+.homeWrapper{
+    &__container{
+        padding-top: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 20px;
+        @media (max-width: 768px) {
+            display: block;
+            width: 95%;
+        }
+    }
+
+    &__main__area{
+        background-color: #fff;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+}

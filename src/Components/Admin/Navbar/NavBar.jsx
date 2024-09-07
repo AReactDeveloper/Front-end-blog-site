@@ -6,7 +6,7 @@ import './navbar.scss';
 export default function NavBar() {
   return (
     <nav className='navbar'>
-        <Link>
+        <Link to={"/"} target='_blank'>
             <FaHome /> Visit site
         </Link>
         <Link>

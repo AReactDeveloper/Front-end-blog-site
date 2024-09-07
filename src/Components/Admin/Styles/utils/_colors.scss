@@ -1,0 +1,51 @@
+// Base Colors
+// Burgundy Color Palette
+$clr-primary: #800020; // Classic burgundy
+$clr-secondary: #4a0d0a; // Darker burgundy
+$clr-accent: #c72c48; // Red-pink accent
+
+// Neutral Colors
+$clr-grey-primary: #6e6e6e; // Neutral grey with warmth
+$clr-grey-secondary: #4a4a4a; // Darker grey
+
+$clr-black: #1a1b1b; // Black color
+$clr-white: #fff; // White color
+
+// Background Colors
+$bg-main: #f5f6fa; // Main background color
+$bg-header: #ffffff; // Header background color (optional)
+$bg-sidebar: #f8f9fa; // Sidebar background color (optional)
+$bg-card: #ffffff; // Card background color
+
+// Borders
+$border-color-light: #e0e0e0; // Light border color
+$border-color-dark: $clr-grey-primary; // Darker border color
+
+// Light Shadows
+$light-shadow-xs: 0 2px 4px rgba(0, 0, 0, 0.05); // Extra small light shadow
+$light-shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.08); // Small light shadow
+$light-shadow-md: 0 6px 12px rgba(0, 0, 0, 0.1); // Medium light shadow
+$light-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15); // Large light shadow
+$light-shadow-xl: 0 10px 20px rgba(0, 0, 0, 0.2); // Extra large light shadow
+
+// Dark Shadows
+$dark-shadow-xs: 0 2px 4px rgba(0, 0, 0, 0.1); // Extra small dark shadow
+$dark-shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15); // Small dark shadow
+$dark-shadow-md: 0 6px 12px rgba(0, 0, 0, 0.2); // Medium dark shadow
+$dark-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.25); // Large dark shadow
+$dark-shadow-xl: 0 10px 20px rgba(0, 0, 0, 0.3); // Extra large dark shadow
+
+// Inset Shadows
+$inset-shadow-xs: inset 0 2px 4px rgba(0, 0, 0, 0.1); // Extra small inset shadow
+$inset-shadow-sm: inset 0 4px 8px rgba(0, 0, 0, 0.15); // Small inset shadow
+$inset-shadow-md: inset 0 6px 12px rgba(0, 0, 0, 0.2); // Medium inset shadow
+$inset-shadow-lg: inset 0 8px 16px rgba(0, 0, 0, 0.25); // Large inset shadow
+$inset-shadow-xl: inset 0 10px 20px rgba(0, 0, 0, 0.3); // Extra large inset shadow
+
+// Gradients
+$grad-ps: linear-gradient(90deg, $clr-primary 0%, $clr-secondary 100%);
+$grad-sp: linear-gradient(90deg, $clr-secondary 0%, $clr-primary 100%);
+$grad-ps-vert: linear-gradient(180deg, $clr-primary 0%, $clr-secondary 100%);
+$grad-ps-diag: linear-gradient(135deg, $clr-primary 0%, $clr-secondary 100%);
+$grad-ps-rad: radial-gradient(circle, $clr-primary 0%, $clr-secondary 100%);
+$grad-sp-rad: radial-gradient(circle, $clr-secondary 0%, $clr-primary 100%);

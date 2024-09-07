@@ -1,0 +1,8 @@
+@import '../abstracts/_variables';  // Import color, spacing, and other design variables
+@import '../abstracts/mixins';     // Import reusable mixins (e.g., for media queries)
+@import '../utils/animations';   
+@import 'typography'; // Import typography styles
+@import 'reset';      // Import CSS resets or normalize
+@import '../utils/helpers';  //helper classes
+@import '../Components/components';  //helper classes
+

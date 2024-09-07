@@ -1,8 +1,9 @@
-.navbar{
+@import url('../Styles/Abstracts/_variables.scss');
+
+.navbar {
     padding: 10px;
-    background-color: var(--clr-grey-primary);
-    color: var(--clr-white);
+    background-color: #000;
+    color: #fff;
     display: flex;
     gap: 40px;
-    box-shadow: var(--light-shadow-md);
 }

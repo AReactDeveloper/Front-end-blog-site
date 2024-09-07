@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillDashboard } from 'react-icons/ai';
 import { FaNewspaper } from 'react-icons/fa';
 import { FaGear } from 'react-icons/fa6';
 import { IoMdPhotos } from 'react-icons/io';
 import { RiPagesLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+
 import './sidebar.scss';
 import useAuth from '../../../Hooks/useAuth';
 
@@ -23,9 +24,7 @@ const adminSidebarData = [
             { name: 'View posts', route: '/dashboard/posts' },
             { name: 'Add Post', route: '/dashboard/posts/add' },
             { name: 'View Categories', route: '/dashboard/posts/categories' },
-            { name: 'Add Category', route: '/dashboard/posts/categories/add' },
             { name: 'View Tags', route: '/dashboard/posts/tags' },
-            { name: 'Add Tag', route: '/dashboard/posts/tags/add' },
         ]
     },
     {
@@ -58,6 +57,10 @@ const AdminSidebar = () => {
     const { logout } = useAuth();
     // State to keep track of which sidebar items are active
     const [activeItem, setActiveItem] = useState(0);
+    const [isOpen, setIsOpen] = useState(true);
+    
+    
+   
 
     // Function to handle item clicks and toggle active state
     const handleClick = (index) => {
@@ -65,8 +68,13 @@ const AdminSidebar = () => {
     }
 
     return (
+        <>
         <div className='adminSidebar'>
             <div className="adminSidebar__list">
+                <div className='adminSidebar__logo'>
+                    <AiFillDashboard className='adminSidebar__logo__icon' size={100} />
+                    <button onClick={()=>logout()}>Logout</button>
+                </div>
                 <ul>
                     {adminSidebarData.map((item, index) => (
                         <li
@@ -93,9 +101,9 @@ const AdminSidebar = () => {
                         </li>
                     ))}
                 </ul>
-                    <button onClick={() => logout()}>Logout User</button>
             </div>
         </div>
+        </>
     );
 }
 

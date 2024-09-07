@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../SideBar/Sidebar'
-import './../Styles/base.scss';
+import './../Styles/base/_global.scss';
 import './dashboard.scss';
 import { Outlet } from 'react-router-dom';
 import NavBar from '../Navbar/NavBar';

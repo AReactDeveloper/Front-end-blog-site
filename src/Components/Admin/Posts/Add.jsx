@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MyEditor from '../../../Utils/Editor/MyEditor'; // Import custom editor component
 import './Posts.scss'; // Import styles for the component
 import Select from 'react-select'; // Import Select component for categories
@@ -6,6 +6,7 @@ import CreatableSelect from 'react-select/creatable'; // Import CreatableSelect 
 import useArticle from './../../../Hooks/useArticle'; // Import custom hook for fetching categories and tags
 import axiosInstance from '../../../api/axiosInstance'; // Import axios instance for API requests
 import {useNavigate} from 'react-router-dom'
+import Modal from '../Modal/Modal';
 
 export default function Add() {
 
@@ -15,7 +16,7 @@ export default function Add() {
   const [imageId, setImageId] = useState('');
 
   // Destructure categories, loading state, and tags from the custom hook
-  const { categories, isLoading, tags } = useArticle();
+  const { categories , getCategories , isLoading, tags } = useArticle();
   
   // State to manage tags options and selected tags
   const [tagsOptions, setTagsOptions] = useState([]);
@@ -25,6 +26,7 @@ export default function Add() {
   
   // State to manage form errors
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
 
   // state to hold image upload element
   const [imgUpload, setImgUpload] = useState(false);
@@ -46,6 +48,10 @@ export default function Add() {
     featuredImage: null
   });
 
+  const modalRef = useRef();
+  const [categoryTitle, setCategoryTitle] = useState('');
+
+
   // Effect to update category options and tags options when categories or tags data changes
   useEffect(() => {
     if (!isLoading && categories) {
@@ -55,7 +61,7 @@ export default function Add() {
         label: cat.title
       }));
       // Set category options, including a default option
-      setCategoryOptions([{ value: 0, label: 'Select Category' }, ...updatedCategories]);
+      setCategoryOptions([...updatedCategories]);
     }
 
     if (!isLoading && tags) {
@@ -67,7 +73,7 @@ export default function Add() {
       // Set tags options
       setTagsOptions([...updatedTags]);
     }
-  }, [categories, isLoading, tags,formData]);
+  }, [categories, isLoading, tags,formData, setFormData]);
 
   // Effect to update formData content when editorOutput changes
   useEffect(() => {
@@ -80,10 +86,17 @@ export default function Add() {
 
   // Handle category selection change
   const handleCategoryChange = (selectedOption) => {
-    setFormData(prevData => ({
-      ...prevData,
-      category: selectedOption
-    }));
+    if(selectedOption.value == 0){
+      setFormData(prevData => ({
+        ...prevData,
+        category: null
+      }));
+    } else {
+      setFormData(prevData => ({
+        ...prevData,
+        category: selectedOption
+      }));
+    }
   };
 
   // Handle change event for tags, updating formData and tagsOptions
@@ -121,7 +134,7 @@ export default function Add() {
       });
       setFormData(prevData => ({
         ...prevData,
-        featuredImage: `http://localhost:9000${response.data.url}`
+        featuredImage: `http://localhost:9000/${response.data.url}`
       }));
       setImageId(response.data.id)
     
@@ -140,13 +153,15 @@ export default function Add() {
 
   // handle image remove click
   const handleImageRemove = () => {
+    console.log('hello')
     setImgUpload(false);
-    
     console.log(formData.featuredImage)
     //make a post delete request to the server
+    console.log('delete')
     axiosInstance
       .delete(`/api/file/${imageId}`)
       .then((response) => {
+
         console.log(response.data);
         setFormData(prevData => ({
           ...prevData,
@@ -167,7 +182,7 @@ export default function Add() {
     const data = new FormData();
     data.append('title', formData.title);
     data.append('content', editorOutput); // Ensure content is a string
-    if(formData.category){
+    if(formData.category != null){
       data.append('category_id',formData.category.value);
     }
     if(formData.featuredImage) {
@@ -195,10 +210,56 @@ export default function Add() {
 
   }
   // Submit the form data using axios
+
+  const handleOpenModal = () => {
+    setCategoryTitle('');
+    setError(''); // Clear any errors when opening modal
+    modalRef.current.toggleModal();
+  };
+
+  const handleCategoryAdd = async (e) => {
+    e.preventDefault();
+
+    if (!categoryTitle.trim()) {
+      return;
+    }
+
+    try {
+      const form = new FormData();
+      form.append('title', categoryTitle);
+      const res = await axiosInstance.post('/api/categories', form);
+      console.log(res);
+      setCategoryTitle(''); // Clear input on success
+      setMessage('Category added successfully');
+      getCategories()
+      modalRef.current?.toggleModal(); // Close modal on success
+    } catch (err) {
+      console.log(err);
+      setError('Something went wrong while adding the category');
+    }
+  };
+
  
 
   return (
     <div className='AddPost'>
+      <Modal ref={modalRef}>
+          {error && <p style={{ color: 'red' }}>{error}</p>}          
+          {message && <p style={{ color: 'green' }}>{message}</p>}          
+          <form className="addCategory" onSubmit={handleCategoryAdd}>
+            <input 
+              autoFocus={true}
+              name="name" 
+              value={categoryTitle}
+              onChange={(e) => setCategoryTitle(e.target.value)} 
+              placeholder="Category name" 
+            />
+            <div className="addCategory__actions">
+              <button type="submit" className="btn btn--add">Add</button>
+              <button type="button" onClick={handleOpenModal} className="btn btn--remove">Cancel</button>
+            </div>
+          </form>
+        </Modal>
       <form onSubmit={handleSave} className="form-group AddPost__form">
         <div className="mainPost">
         {error && <p className="error">{error}</p>} {/* Display error message if any */}
@@ -221,7 +282,7 @@ export default function Add() {
               {imgUpload ? 
                 <>
                   <img style={{width:'150px',height:'auto'}} src={formData.featuredImage} /> 
-                  <button onClick={handleImageRemove}>remove</button>
+                  <button className='btn btn--primary' type="button" onClick={handleImageRemove}>Remove</button>
                 </>
               : <>
                 {imageLoading ? <p>Loading ...</p> : <>
@@ -247,6 +308,12 @@ export default function Add() {
                 value={formData.category}
                 placeholder="Select a category"
               />
+              <a 
+              style={
+                {color:'blue',textDecoration:'underline' ,cursor:'pointer'}
+              }
+              onClick={handleOpenModal}
+              >Create a new category</a>
             </div>
           </div>
 

@@ -55,3 +55,26 @@
     box-shadow: var(--light-shadow-sm);
 }
 
+.addCategory{
+    display: flex;
+    flex-direction: column;
+
+    & input{
+        outline: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    &__actions{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 20px;
+        align-items: end;
+        & button{
+            display: inline-block;
+            margin: 0 5px;
+            width: 20%;
+        }
+    }
+}

@@ -38,7 +38,7 @@ const imageUpload = {
             return {
               success: 1,
               file: {
-                url: 'http://localhost:9000' + response.data.url,
+                url: 'http://localhost:9000/' + response.data.url,
                 // any other image data you want to store
               }
             };

@@ -11,8 +11,9 @@ import Login from "./Components/Home/Login";
 import ProtectedRoute from "./Utils/ProtectedRoute";
 import CategoryList from "./Components/Admin/Posts/CategoryList";
 import TagList from "./Components/Admin/Posts/TagList";
-import Home from "./Components/Home/Home";
 import Edit from "./Components/Admin/Posts/Edit";
+import Home from "./Components/Home/templates/Home";
+import Articles from "./Components/Home/templates/Layouts/Articles/Articles";
 
 
 export const router = createBrowserRouter([
@@ -20,12 +21,18 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    errorElement: <NotFound />
+    errorElement: <NotFound />,
   },
   {
     path: "/",
     element: <Home />,
-    errorElement: <NotFound />
+    errorElement: <NotFound />,
+    children:[
+      {
+        index:true,
+        element: <Articles />
+      }
+    ]
   },
   {
     path: "/dashboard",

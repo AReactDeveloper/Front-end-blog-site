@@ -71,7 +71,7 @@ export const ArticleProvider = ({ children }) => {
     };
 
     return (
-        <ArticleContext.Provider value={{ getPosts, getPost, updatePost, error, articles, isLoading, categories, tags }}>
+        <ArticleContext.Provider value={{ getPosts, getPost, updatePost , getCategories, getTags, error, articles, isLoading, categories, tags }}>
             {children}
         </ArticleContext.Provider>
     );

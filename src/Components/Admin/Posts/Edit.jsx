@@ -9,7 +9,7 @@ import useArticle from '../../../Hooks/useArticle';
 import Spinner from '../../Admin/spinner/Spinner';
 
 export default function Edit() {
-    const { categories, tags } = useArticle();
+    const { categories, tags , getCategories, getTags } = useArticle();
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -57,9 +57,13 @@ export default function Edit() {
                 setError(err.response?.data?.error || 'An error occurred.');
             }
         };
-
         fetchArticle();
     }, [id, imageId, imageLoading, categoryOptions]);
+
+    useEffect(()=>{
+        getCategories()
+        getTags()
+    },[isLoading])
 
     useEffect(() => {
         if (!isLoading) {
@@ -68,7 +72,7 @@ export default function Edit() {
                     value: cat.id,
                     label: cat.title
                 }));
-                setCategoryOptions([{ value: 0, label: 'Select Category' }, ...updatedCategories]);
+                setCategoryOptions([ ...updatedCategories]);
             }
 
             if (tags) {
@@ -120,7 +124,7 @@ export default function Edit() {
                 const response = await axiosInstance.post('/api/file', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
-                setImageId(`http://localhost:9000${response.data.url}`);
+                setImageId(`http://localhost:9000/${response.data.url}`);
             } catch (error) {
                 console.error(error.response?.data);
             } finally {
@@ -163,6 +167,14 @@ export default function Edit() {
         console.log(formData.category?.value)
     };
 
+    const handleImageRemove = () => {
+        setImgUpload(false)
+        setFormData(prevData => ({
+            ...prevData,
+            imgUrl: null
+        }))
+    }
+
     if (isLoading) {
         return <Spinner />;
     }
@@ -199,7 +211,7 @@ export default function Edit() {
                                         src={formData.imgUrl}
                                         alt="Featured"
                                     />
-                                    <button type="button" onClick={() => setImgUpload(false)}>Remove</button>
+                                    <button className='btn btn--primary' type="button" onClick={handleImageRemove}>Remove</button>
                                 </>
                             ) : (
                                 <>
