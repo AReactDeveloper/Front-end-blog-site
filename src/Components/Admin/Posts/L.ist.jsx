@@ -113,7 +113,7 @@ export default function List() {
                         </tr>
                     </thead>
                     <tbody>
-                        {renderedArticles.map(({ id, title, created_at , category , tags ,imgUrl}) => (
+                        {renderedArticles.map(({ id, slug, title, created_at , category , tags ,imgUrl}) => (
                             <tr key={id}>
                                 <td>{title}</td>
                                 <td><Link to={"/"}>{category?.title}</Link></td>
@@ -136,7 +136,7 @@ export default function List() {
                                 <td>{new Date(created_at).toLocaleDateString()}</td>
                                 <td className='actions'>
                                     <Link className='fill-green'><IoEyeSharp /></Link>
-                                    <Link to={`/dashboard/posts/edit/${id}`} className='fill-blue'><MdEdit /></Link>
+                                    <Link to={`/dashboard/posts/edit/${slug}`} className='fill-blue'><MdEdit /></Link>
                                     <a onClick={()=> handleDelete(id)} className='fill-red'><FaTrash /></a>
                                 </td>
                             </tr>

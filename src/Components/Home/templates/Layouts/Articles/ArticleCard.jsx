@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './articles.scss'
-import {json, Link} from "react-router-dom"
+import { Link} from "react-router-dom"
 
 export default function ArticleCard({article}) {
   const [excerpt, setExcerpt] = useState('')
@@ -25,7 +25,7 @@ export default function ArticleCard({article}) {
         <div className='article__card__content'>
           <Link><h3>{article.title}</h3></Link>
           <p>{excerpt}</p>
-          <Link className="article__card__content__link">Read more</Link>
+          <Link to={'/'+article.slug} className="article__card__content__link">Read more</Link>
         </div>
         <img src={article.imgUrl} alt=""/>
       </article>

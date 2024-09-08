@@ -11,7 +11,7 @@ import Spinner from '../../Admin/spinner/Spinner';
 export default function Edit() {
     const { categories, tags , getCategories, getTags } = useArticle();
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { slug } = useParams();
 
     const [isLoading, setIsLoading] = useState(true);
     const [imageId, setImageId] = useState(null);
@@ -37,7 +37,7 @@ export default function Edit() {
     useEffect(() => {
         const fetchArticle = async () => {
             try {
-                const response = await axiosInstance.get(`/api/articles/${id}`);
+                const response = await axiosInstance.get(`/api/articles/${slug}`);
                 if (response.data) {
                     const { title, content, category_id, tags, imgUrl } = response.data;
                     setInitialContent(content);
@@ -58,7 +58,7 @@ export default function Edit() {
             }
         };
         fetchArticle();
-    }, [id, imageId, imageLoading, categoryOptions]);
+    }, [slug, imageId, imageLoading, categoryOptions]);
 
     useEffect(()=>{
         getCategories()
@@ -155,7 +155,7 @@ export default function Edit() {
         console.log(data.tags)
 
         try {
-            const response = await axiosInstance.put(`/api/articles/${id}`, data);
+            const response = await axiosInstance.put(`/api/articles/${slug}`, data);
             console.log('Response:', response.data);
             navigate('/dashboard/posts');
         } catch (error) {

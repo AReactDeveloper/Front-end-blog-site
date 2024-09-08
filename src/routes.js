@@ -14,6 +14,7 @@ import TagList from "./Components/Admin/Posts/TagList";
 import Edit from "./Components/Admin/Posts/Edit";
 import Home from "./Components/Home/templates/Home";
 import Articles from "./Components/Home/templates/Layouts/Articles/Articles";
+import SingleArticle from "./Components/Home/templates/Layouts/Articles/SingleArticle";
 
 
 export const router = createBrowserRouter([
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         index:true,
         element: <Articles />
+      },
+      {
+        path:'/:slug',
+        element: <SingleArticle />
       }
     ]
   },
@@ -55,7 +60,7 @@ export const router = createBrowserRouter([
             element: <Add />
           },
           {
-            path: 'edit/:id',
+            path: 'edit/:slug',
             element: <Edit />
           },
           {

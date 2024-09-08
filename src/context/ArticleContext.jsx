@@ -29,10 +29,10 @@ export const ArticleProvider = ({ children }) => {
         }
     };
 
-    const getPost = async (id) => {
+    const getPost = async (slug) => {
         setLoading(true);
         try {
-            const res = await axiosInstance.get(`/api/articles/${id}`);
+            const res = await axiosInstance.get(`/api/articles/${slug}`);
             setLoading(false);
             return res.data || null;
         } catch (err) {
