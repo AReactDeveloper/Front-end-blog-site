@@ -13,8 +13,9 @@ import CategoryList from "./Components/Admin/Posts/CategoryList";
 import TagList from "./Components/Admin/Posts/TagList";
 import Edit from "./Components/Admin/Posts/Edit";
 import Home from "./Components/Home/templates/Home";
-import Articles from "./Components/Home/templates/Layouts/Articles/Articles";
-import SingleArticle from "./Components/Home/templates/Layouts/Articles/SingleArticle";
+import Articles from "./Components/Home/templates/base/Articles/Articles";
+import SingleArticle from "./Components/Home/templates/base/SingleArticle/SingleArticle";
+import Page404 from "./Components/Home/templates/base/404/Page404";
 
 
 export const router = createBrowserRouter([
@@ -27,14 +28,14 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <NotFound />,
+    errorElement: <Page404 />,
     children:[
       {
         index:true,
         element: <Articles />
       },
       {
-        path:'/:slug',
+        path:'/article/:slug',
         element: <SingleArticle />
       }
     ]

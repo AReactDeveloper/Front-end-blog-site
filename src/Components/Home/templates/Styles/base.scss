@@ -1,16 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
     background-color: #f2f2f2;
+    font-family: "Open Sans", sans-serif;
+}
+
+img {
+    width: 100%;
+    height: auto;
 }
 
 .homeWrapper{
     &__container{
         padding-top: 40px;
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
         display: grid;
         grid-template-columns: 3fr 1fr;
         gap: 20px;
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             display: block;
             width: 95%;
         }
@@ -18,7 +32,6 @@ body{
 
     &__main__area{
         background-color: #fff;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         padding: 20px;
         border-radius: 10px;
     }

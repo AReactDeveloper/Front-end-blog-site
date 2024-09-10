@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react';
 import './articles.scss';
 import ArticleCard from './ArticleCard';
 import useArticle from '../../../../../Hooks/useArticle';
+import { FaList } from "react-icons/fa6";
+import { IoGrid } from "react-icons/io5";
+
 
 export default function Articles() {
   const { articles, getPosts } = useArticle();
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const articlesPerPage = 5; // Set the number of articles to display per page
+  const [isGridView, setIsGridView] = useState(false);
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [getPosts]);
 
   // Calculate the indices for the articles to display
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -28,18 +32,30 @@ export default function Articles() {
 
   return (
     <>
-      {/* Display the current articles */}
-      {currentArticles.map((article) => (
+      <div className='articles__head'>
+        <h2>Latest Articles : </h2>
+        <div className='articles__head__actions'>
+          <button onClick={()=>setIsGridView(false)} className='btn'>
+            <FaList />
+          </button>
+          <button onClick={()=>setIsGridView(true)} className='btn'>
+            <IoGrid />
+          </button>
+        </div>
+      </div>
+      <div className={isGridView ? 'articles__grid' : 'articles'}>
+        {currentArticles.map((article) => (
         <ArticleCard key={article.id} article={article} />
-      ))}
-
+        ))}
+      </div>
+      
       {/* Numbered Pagination Controls */}
       <div className="Home__pagination">
         {pageNumbers.map((number) => (
           <button
             key={number}
             onClick={() => handlePageClick(number)}
-            className={currentPage === number ? 'active' : ''}
+            className={currentPage === number ? 'active btnPaginate' : 'btnPaginate'}
           >
             {number}
           </button>
