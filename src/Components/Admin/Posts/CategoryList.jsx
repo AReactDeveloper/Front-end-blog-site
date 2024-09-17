@@ -14,7 +14,7 @@ export default function CategoryList() {
 
   useEffect(()=>{
     getCategories();
-  },[categories])
+  },[])
 
   const handleCategoryAdd = async (e) => {
     e.preventDefault();

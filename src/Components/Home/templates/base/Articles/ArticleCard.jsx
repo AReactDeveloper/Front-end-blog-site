@@ -42,7 +42,8 @@ export default function ArticleCard({article}) {
         <img src={article.imgUrl} alt=""/>
       </div>
         <div className='article__card__content'>
-          <Link><h3>{article.title}</h3></Link>
+          
+          <Link to={'/article/'+article.slug}><h3>{article.title}</h3></Link>
           <p className='article__card__content__meta'>
             <span className='article__card__content__meta__category'>
               {!article.category ? '' : <Link>{article?.category?.title} </Link>}

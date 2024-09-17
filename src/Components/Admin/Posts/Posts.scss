@@ -78,3 +78,13 @@
         }
     }
 }
+
+.addCategoryButton{
+    all: unset;
+    cursor: pointer;
+    color: #222;
+    &:hover{
+        background-color: transparent;
+        color: #222;
+    }
+}

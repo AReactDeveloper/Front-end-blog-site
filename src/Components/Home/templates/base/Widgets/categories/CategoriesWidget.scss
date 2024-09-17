@@ -1,0 +1,46 @@
+// ListComponent.scss
+.category-list {
+    list-style-type: none;
+    /* Remove default bullets */
+    padding: 0;
+    margin: 0;
+
+    li {
+        border: 1px solid #222;
+        /* Border color */
+        border-radius: 8px;
+        /* Rounded corners */
+        margin: 5px 0;
+        /* Space between items */
+        overflow: hidden;
+        /* Hide overflow */
+
+        &:hover {
+            background-color: #333;
+            /* Darker background on hover */
+            transform: translateY(-2px);
+            /* Slight lift effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            /* Shadow on hover */
+        }
+
+        a {
+            display: block;
+            padding: 10px 15px;
+            /* Padding inside list item */
+            color: #222;
+            /* Text color */
+            text-decoration: none;
+            /* Remove underline */
+            font-size: 1rem;
+            /* Font size */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transition */
+
+            &:hover {
+                color: #fff;
+                /* Change text color on hover */
+            }
+        }
+    }
+}

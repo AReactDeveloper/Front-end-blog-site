@@ -39,16 +39,16 @@ const adminSidebarData = [
         icon: <RiPagesLine />,
         title: 'Pages',
         sublist: [
-            { name: 'All Pages', route: '/pages' },
-            { name: 'Add new Page', route: '/pages/add' },
+            { name: 'All Pages', route: '/dashboard/pages' },
+            { name: 'Add new Page', route: '/dashboard/pages/add' },
         ]
     },
     {
         icon: <FaGear />,
         title: 'Settings',
         sublist: [
-            { name: 'General settings', route: '/settings/general' },
-            { name: 'Account settings', route: '/settings/account' },
+            { name: 'General settings', route: '/dashboard/settings' },
+            { name: 'Account settings', route: '/dashboard/settings/account' },
         ]
     },
 ];

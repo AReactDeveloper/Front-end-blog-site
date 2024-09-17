@@ -1,0 +1,12 @@
+.siteInfo{
+    & img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+.col-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}

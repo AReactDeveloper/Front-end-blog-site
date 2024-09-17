@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { json, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useArticle from '../../../../../Hooks/useArticle';
 import Spinner from '../../../../Admin/spinner/Spinner';
 import { editorJsToHtml } from '../../../../../Utils/Editor/editorJsToHtml';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function SingleArticle() {
     const { slug } = useParams();
@@ -33,6 +34,9 @@ export default function SingleArticle() {
     } else {
         return (
             <div className='singleArticle'>
+                <div>
+                <Link to='/'><FaArrowLeft /> Back home</Link>
+                </div>
                 <h1>{article.title}</h1>
                 <p>{articleDate}</p>
                 

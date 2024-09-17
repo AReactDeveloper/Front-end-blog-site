@@ -12,10 +12,17 @@ import ProtectedRoute from "./Utils/ProtectedRoute";
 import CategoryList from "./Components/Admin/Posts/CategoryList";
 import TagList from "./Components/Admin/Posts/TagList";
 import Edit from "./Components/Admin/Posts/Edit";
-import Home from "./Components/Home/templates/Home";
+import Home from "./Components/Home/templates/base/Home";
 import Articles from "./Components/Home/templates/base/Articles/Articles";
 import SingleArticle from "./Components/Home/templates/base/SingleArticle/SingleArticle";
 import Page404 from "./Components/Home/templates/base/404/Page404";
+import Search from "./Components/Home/templates/base/Search/Search";
+import SiteInfo from "./Components/Admin/Settings/SiteInfo";
+import CategoryView from "./Components/Home/templates/base/CategoryView/CategoryView";
+import TagView from "./Components/Home/templates/base/TagView/TagView";
+import PageList from "./Components/Admin/Pages/PageList";
+import AddPage from "./Components/Admin/Pages/AddPage";
+import EditPage from "./Components/Admin/Pages/EditPage";
 
 
 export const router = createBrowserRouter([
@@ -37,6 +44,18 @@ export const router = createBrowserRouter([
       {
         path:'/article/:slug',
         element: <SingleArticle />
+      },
+      {
+        path:'/search/:query',
+        element: <Search />
+      },
+      {
+        path:'/category/:category',
+        element: <CategoryView />
+      },
+      {
+        path:'/tag/:tag',
+        element: <TagView />
       }
     ]
   },
@@ -47,6 +66,32 @@ export const router = createBrowserRouter([
       {
         index:true,
         element: <MainArea />
+      },
+      {
+        path: "settings",
+        index: true,
+        element: <SiteInfo />
+      },
+      {
+        path: "pages",
+        children: [
+          {
+            index: true,
+            element: <PageList />
+          },
+          {
+            path: "add",
+            element: <AddPage />
+          },
+          {
+            path: "edit/:slug",
+            element: <EditPage />
+          }
+        ]
+      },
+      {
+        path:"settings/account",
+        element: <>Account settings</>
       },
       {
         path: "posts",
@@ -73,10 +118,6 @@ export const router = createBrowserRouter([
             element: <TagList />
           }
         ]
-      },
-      {
-        path: "pages",
-        element: <>Pages</>
       }
     ]
   }
