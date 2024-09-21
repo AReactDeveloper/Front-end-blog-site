@@ -5,14 +5,17 @@ import {Link} from "react-router-dom"
 import "./navbar.scss"
 import useSiteInfo from '../../../../../../Hooks/useSiteInfo';
 import Logo from '../../Logo/Logo';
+import UsePage from '../../../../../../Hooks/UsePage';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const {siteInfo} = useSiteInfo()
+  const {pages} = UsePage()
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
 
 
   return (
@@ -31,8 +34,9 @@ export default function Navbar() {
         <div className={`nav_links ${isOpen ? 'open' : ''}`}>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            {pages.map(page =>{
+                return <li id={page.id}><Link to={'/page/' + page.slug}>{page.title}</Link></li>
+            })}
           </ul>
         </div>
         <div className="hamburger" onClick={toggleNavbar}>
