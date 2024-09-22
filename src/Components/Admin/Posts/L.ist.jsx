@@ -113,42 +113,35 @@ export default function List() {
                         </tr>
                     </thead>
                     <tbody>
-  {renderedArticles.length === 0 ? (
-    <tr>
-      <td colSpan="6">No Posts Found</td>
-    </tr>
-  ) : (
-    renderedArticles.map(({ id, slug, title, created_at, category, tags, imgUrl }) => (
-      <tr key={id}>
-        <td>{title}</td>
-        <td><Link to="/">{category?.title || 'No category'}</Link></td>
-        <td>
-          {imgUrl ? (
-            <img style={{ width: 70, height: 70 }} src={imgUrl} alt={title} />
-          ) : (
-            <p className='text_gray'>No image available</p>
-          )}
-        </td>
-        <td>
-          {tags?.length > 0 ? (
-            tags.map((tag) => (
-              <Link key={tag.id} to="/">{tag.title}, </Link>
-            ))
-          ) : (
-            <p className='text_gray'>No tags available</p>
-          )}
-        </td>
-        <td>{new Date(created_at).toLocaleDateString()}</td>
-        <td className='actions'>
-          <Link className='fill-green' target='_blank' to={`/article/${slug}`}><IoEyeSharp /></Link>
-          <Link to={`/dashboard/posts/edit/${slug}`} className='fill-blue'><MdEdit /></Link>
-          <a onClick={() => handleDelete(id)} className='fill-red'><FaTrash /></a>
-        </td>
-      </tr>
-    ))
-  )}
-</tbody>
-
+                        {renderedArticles.map(({ id, slug, title, created_at , category , tags ,imgUrl}) => (
+                            <tr key={id}>
+                                <td>{title}</td>
+                                <td><Link to={"/"}>{category?.title}</Link></td>
+                                <td>
+                                    {imgUrl ? 
+                                        <img style={{ width: 70, height: 70 }} src={imgUrl} alt="" />
+                                        :
+                                        <p className='text_gray'>No image available</p>
+                                    }
+                                </td>
+                                <td>
+                                    {tags?.length > 0 ? (
+                                    tags.map((tag) => (
+                                        <Link key={tag.id} to={"/"}>{tag.title}, </Link>
+                                        ))
+                                    ) : (
+                                        <p className='text_gray'>No tags available</p>  // This will render if `tags` is empty or undefined
+                                    )}
+                                </td>
+                                <td>{new Date(created_at).toLocaleDateString()}</td>
+                                <td className='actions'>
+                                    <Link className='fill-green'><IoEyeSharp /></Link>
+                                    <Link to={`/dashboard/posts/edit/${slug}`} className='fill-blue'><MdEdit /></Link>
+                                    <a onClick={()=> handleDelete(id)} className='fill-red'><FaTrash /></a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
                     </Table>
             </div>
 

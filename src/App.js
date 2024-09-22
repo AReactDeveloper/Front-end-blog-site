@@ -11,16 +11,15 @@ import { PageProvider } from './context/PageContext.jsx';
 
 export default function App() {
 
-  
   return (
-    <AuthProvider>
-    <SiteInfoProvider>
-      <ArticleProvider>
-        <PageProvider>
-          <RouterProvider router={router} />
-        </PageProvider>
-      </ArticleProvider>
-    </SiteInfoProvider>
-  </AuthProvider>
+      <AuthProvider>
+        <SiteInfoProvider>
+          <ArticleProvider>
+            <PageProvider>
+              <RouterProvider router={router} />
+            </PageProvider>
+          </ArticleProvider>
+        </SiteInfoProvider>
+      </AuthProvider>
   )
 }

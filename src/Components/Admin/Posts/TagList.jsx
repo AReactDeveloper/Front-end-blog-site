@@ -14,7 +14,7 @@ export default function TagList() {
 
      useEffect(()=>{
         getTags();
-    },[])
+    },[tags])
      const handleOpenModal = () => {
         setTagTitle('');
         setError(''); // Clear any errors when opening modal
@@ -93,26 +93,17 @@ export default function TagList() {
                 <tr>
                     <th>Title</th>
                     <th>Post Count</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-            {tags.length === 0 ? (
-              <tr>
-                <td colSpan="3">No Tags Found</td>
-              </tr>
-            ) : (
-              tags.map((tag) => (
-                <tr key={tag.id}>
-                  <td>{tag.title}</td>
-                  <td>{tag.articles_count}</td>
-                  <td>
-                    <button onClick={() => handleDelete(tag.id)}>x</button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
+                {tags.map((tag) => (
+                    <tr key={tag.id}>
+                        <td>{tag.title}</td>
+                        <td>{tag.articles_count}</td>
+                        <td><button onClick={() => handleDelete(tag.id)}>x</button></td>
+                    </tr>
+                ))}
+            </tbody>
         </Table>
     </div>
   )

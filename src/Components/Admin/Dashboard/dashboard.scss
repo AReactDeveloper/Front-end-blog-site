@@ -2,17 +2,3 @@
     display: grid;
     grid-template-columns: 1fr 5fr;
 }
-
-.dashboard__header {
-    padding: 20px;
-    & p {
-        display: block;
-    }
-}
-
-.dashboard__title{
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    
-}

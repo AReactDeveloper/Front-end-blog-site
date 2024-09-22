@@ -1,8 +1,8 @@
 export function editorJsToHtml(editorData) {
-        if(editorData) {
-            const jsonContent = JSON.parse(editorData)
+        const jsonContent = JSON.parse(editorData)
         let html = ''
         jsonContent.blocks.forEach(block=>{
+            console.log(block.type)
             switch (block.type) {
                 case 'header':
                     html += `<h${block.data.level}>${block.data.text}</h${block.data.level}>`;
@@ -37,6 +37,9 @@ export function editorJsToHtml(editorData) {
                         html += `<cite>${block.data.caption}</cite>`;
                     }
                     break;
+                case 'code':
+                    html += `<pre><code>${block.data.code}</code></pre>`;
+                    break;
                 case 'embed':
                     html += `<iframe src="${block.data.url}" frameborder="0" allowfullscreen></iframe>`;
                     break;
@@ -56,6 +59,9 @@ export function editorJsToHtml(editorData) {
                     break;
                 case 'linkTool':
                     html += `<a href="${block.data.link}" target="_blank">${block.data.link}</a>`;
+                    break;
+                case 'raw':
+                    html += block.data.html;
                     break;
                 case 'warning':
                     html += `<div class="warning"><strong>${block.data.title}</strong><p>${block.data.message}</p></div>`;
@@ -98,7 +104,4 @@ export function editorJsToHtml(editorData) {
             }
         })
         return html
-        }else{
-            return 'no data received from the server'
-        }
     }

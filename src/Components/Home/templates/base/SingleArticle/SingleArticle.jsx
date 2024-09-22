@@ -4,7 +4,6 @@ import useArticle from '../../../../../Hooks/useArticle';
 import Spinner from '../../../../Admin/spinner/Spinner';
 import { editorJsToHtml } from '../../../../../Utils/Editor/editorJsToHtml';
 import { FaArrowLeft } from 'react-icons/fa';
-import './singleArticle.scss';
 
 export default function SingleArticle() {
     const { slug } = useParams();
@@ -20,21 +19,12 @@ export default function SingleArticle() {
             const data = await getPost(slug)
             setArticle(data)
             setContentHtml(editorJsToHtml(data.content))
-            const newDate = new Date(article.updated_at).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          });
-          setArticleDate(newDate);
             setIsLoading(false)
         };
         
         fetchArticle();
+        console.log(isLoading)
     }, [slug]);
-
-    useEffect(()=>{
-        window.scrollTo(0, 0);
-    },[slug])
 
 
     
@@ -44,24 +34,28 @@ export default function SingleArticle() {
     } else {
         return (
             <div className='singleArticle'>
-                <div className='singleArticle__navigation'>
-                    <Link to='/'><FaArrowLeft /> Back home</Link>
-                    <p className='singleArticle__navigation__date'>{articleDate}</p>
+                <div>
+                <Link to='/'><FaArrowLeft /> Back home</Link>
                 </div>
                 <h1>{article.title}</h1>
+                <p>{articleDate}</p>
                 
-                {article.category && <Link className='singleArticle__category' to={`/category/${article.category.title}`} href="#">{article.category.title}</Link>}
+                {/* Render category title if available */}
+                {article.category && <a href="#">{article.category.title}</a>}
                 
-                {article.imgUrl && <img src={article.imgUrl} alt={article.title} />}
+                {/* Render image if available */}
+                {article.imgUrl && <img src={article.imgUrl} alt="Article" />}
                 
                 <br />
 
+                {/* Render the article content */}
                 <div className='content' dangerouslySetInnerHTML={{ __html: contentHtml }} />
 
+                {/* Render tags if available */}
                 {article.tags && (
-                    <ul className='singleArticle__tags'>
+                    <ul>
                         {article.tags.map((tag) => (
-                    <li key={tag.id}><Link to={`/tag/${tag.title}`}>{tag.title}</Link></li>
+                            <li key={tag.id}>{tag.title}</li>
                         ))}
                     </ul>
                 )}

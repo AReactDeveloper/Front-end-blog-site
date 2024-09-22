@@ -16,30 +16,18 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         setIsLoading(true); // Start loading
-        setError(''); // Clear previous error
-
         try {
             const res = await axiosInstance.post('/api/login', { email, password });
-            
-            // Assuming your token is under res.data.token
             localStorage.setItem('sanctum_token', res.data.token);
-            
             await getUser();
-            setIsAuth(true); 
-
+            setIsAuth(true);
+            setError(''); // Clear error on successful login
         } catch (err) {
-            if (err.response) {
-                setError(err.response.data.messages || 'Login failed. Please try again.');
-            } else if (err.request) {
-                setError('Network error. Please check your connection.');
-            } else {
-                setError('An unexpected error occurred. Please try again.');
-            }
+            setError(err.response?.data?.messages || 'Login failed');
         } finally {
-            setIsLoading(false); 
+            setIsLoading(false); // Stop loading after operation
         }
     };
-
 
     const getUser = async () => {
         setIsLoading(true); // Start loading
