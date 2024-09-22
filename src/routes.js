@@ -23,6 +23,8 @@ import TagView from "./Components/Home/templates/base/TagView/TagView";
 import PageList from "./Components/Admin/Pages/PageList";
 import AddPage from "./Components/Admin/Pages/AddPage";
 import EditPage from "./Components/Admin/Pages/EditPage";
+import AccountSettings from "./Components/Admin/Settings/AccountSettings";
+import SinglePage from "./Components/Home/templates/base/SinglePage/SinglePage";
 
 
 export const router = createBrowserRouter([
@@ -44,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path:'/article/:slug',
         element: <SingleArticle />
+      },
+      {
+        path:'/page/:slug',
+        element: <SinglePage />
       },
       {
         path:'/search/:query',
@@ -84,14 +90,14 @@ export const router = createBrowserRouter([
             element: <AddPage />
           },
           {
-            path: "edit/:slug",
+            path: "edit/:id",
             element: <EditPage />
           }
         ]
       },
       {
         path:"settings/account",
-        element: <>Account settings</>
+        element: <AccountSettings />
       },
       {
         path: "posts",

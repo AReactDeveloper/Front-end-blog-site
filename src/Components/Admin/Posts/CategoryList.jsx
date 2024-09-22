@@ -95,13 +95,21 @@ export default function CategoryList() {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category) => (
-              <tr key={category.id}>
-                <td>{category.title}</td>
-                <td>{category.articles_count}</td>
-                <td><button onClick={() => handleDelete(category.id)}>x</button></td>
+            {categories.length === 0 ? (
+              <tr>
+                <td colSpan="3">No Categories Found</td>
               </tr>
-            ))}
+            ) : (
+              categories.map((category) => (
+                <tr key={category.id}>
+                  <td>{category.title}</td>
+                  <td>{category.articles_count}</td>
+                  <td>
+                    <button onClick={() => handleDelete(category.id)}>x</button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </Table>
       </div>

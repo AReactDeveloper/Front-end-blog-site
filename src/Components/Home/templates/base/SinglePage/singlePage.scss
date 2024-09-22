@@ -1,4 +1,4 @@
-.singleArticle {
+.singlePage {
     padding: 20px;
     overflow-x: auto;
 
@@ -6,10 +6,12 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        &__date{
+
+        &__date {
             color: #ccc;
         }
-        & a{
+
+        & a {
             margin-bottom: 20px;
             display: flex;
             align-items: baseline;
@@ -111,7 +113,8 @@
         color: red;
         padding: 15px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 10px ;
+        border-radius: 10px;
+
         & strong {
             text-transform: uppercase;
         }
@@ -185,37 +188,39 @@
         border-radius: 3px;
     }
 
-    &__tags{
+    &__tags {
         list-style-type: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-block: 50px;        
-            li {
-                border: 1px solid #222;
-                border-radius: 8px;
-                overflow: hidden;
-        
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-block: 50px;
+
+        li {
+            border: 1px solid #222;
+            border-radius: 8px;
+            overflow: hidden;
+
+            &:hover {
+                background-color: #333;
+                color: #fff;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+            }
+
+            a {
+                margin: 0;
+                display: block;
+                padding: 10px 15px;
+                color: #222;
+                text-decoration: none;
+                font-size: 1rem;
+                transition: background-color 0.3s ease, color 0.3s ease;
+
                 &:hover {
-                    background-color: #333;
                     color: #fff;
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-                    cursor: pointer;
-                }
-        
-                a {
-                    margin: 0;
-                    display: block;
-                    padding: 10px 15px;
-                    color: #222;
-                    text-decoration: none;
-                    font-size: 1rem;
-                    transition: background-color 0.3s ease, color 0.3s ease;        
-                    &:hover {
-                        color: #fff;
-                    }
                 }
             }
+        }
     }
 }

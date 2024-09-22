@@ -81,7 +81,6 @@ const imageUpload = {
 };
 
 const EDITOR_JS_TOOLS = {
-  embed: Embed,
   header: {
     class:Header,
     inlineToolbar: true, // Enable inline toolbar (e.g., bold, italic) for header block
@@ -91,10 +90,23 @@ const EDITOR_JS_TOOLS = {
   },
   table: Table,
   list: List,
+  embed: Embed,
   warning: Warning,
-  code: Code,
+   code: {
+    class: Code,
+    inlineToolbar: true, // Enable inline toolbar if needed
+    config: {
+      placeholder: 'Enter your code here'
+    }
+  },
+  raw: {
+    class: Raw,
+    inlineToolbar: true, // Enable inline toolbar if needed
+    config: {
+      placeholder: 'Enter raw HTML here'
+    }
+  },
   linkTool: LinkTool,
-  raw: Raw,
   quote: Quote,
   marker: Marker,
   checklist: CheckList,
