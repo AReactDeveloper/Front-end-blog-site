@@ -134,7 +134,7 @@ export default function Add() {
       });
       setFormData(prevData => ({
         ...prevData,
-        featuredImage: `http://localhost:9000/${response.data.url}`
+        featuredImage: response.data.url
       }));
       setImageId(response.data.id)
     
@@ -186,7 +186,7 @@ export default function Add() {
       data.append('category_id',formData.category.value);
     }
     if(formData.featuredImage) {
-      data.append('imgUrl', formData.featuredImage);
+      data.append('imgUrl', `${process.env.REACT_APP_API_URL}/${formData.featuredImage}`);
     }
     
     // Handle tags: Append each tag as a separate field
@@ -281,7 +281,7 @@ export default function Add() {
             <div className="sidePost__card__content">
               {imgUpload ? 
                 <>
-                  <img style={{width:'150px',height:'auto'}} src={formData.featuredImage} /> 
+                  <img style={{width:'150px',height:'auto'}} src={`${process.env.REACT_APP_API_URL}/${formData.featuredImage}`} /> 
                   <button className='btn btn--primary' type="button" onClick={handleImageRemove}>Remove</button>
                 </>
               : <>

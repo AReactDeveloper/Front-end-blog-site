@@ -52,7 +52,7 @@ export default function SingleArticle() {
                 
                 {article.category && <Link className='singleArticle__category' to={`/category/${article.category.title}`} href="#">{article.category.title}</Link>}
                 
-                {article.imgUrl && <img src={article.imgUrl} alt="Article" />}
+                {article.imgUrl && <img src={article.imgUrl} alt={article.title} />}
                 
                 <br />
 

@@ -123,7 +123,7 @@ export default function SiteInfo() {
       if (res.data) {
         setFormData((prevData) => ({  // Update formData with the new value
           ...prevData,
-          [name]: `http://localhost:9000/${res.data.url}`
+          [name]: `${process.env.REACT_APP_API_URL}/${res.data.url}`
         }));
         setMessage('Site' + name + ' uploaded successfully');
       } else {

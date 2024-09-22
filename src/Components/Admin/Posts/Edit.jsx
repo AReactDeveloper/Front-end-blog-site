@@ -124,7 +124,7 @@ export default function Edit() {
                 const response = await axiosInstance.post('/api/file', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
-                setImageId(`http://localhost:9000/${response.data.url}`);
+                setImageId(response.data.url);
             } catch (error) {
                 console.error(error.response?.data);
             } finally {
@@ -142,7 +142,7 @@ export default function Edit() {
         const data = {
             title: formData.title,
             content: formData.content,
-            imgUrl: formData.imgUrl || imageId,
+            imgUrl: `${process.env.REACT_APP_API_URL}/${formData.featuredImage}` || imageId,
             category_id: formData.category?.value || null,
         };
 
@@ -208,7 +208,7 @@ export default function Edit() {
                                 <>
                                     <img
                                         style={{ width: '100%', height: 'auto', padding: "10px" }}
-                                        src={formData.imgUrl}
+                                        src={`${process.env.REACT_APP_API_URL}/${formData.imgUrl}`}
                                         alt="Featured"
                                     />
                                     <button className='btn btn--primary' type="button" onClick={handleImageRemove}>Remove</button>
