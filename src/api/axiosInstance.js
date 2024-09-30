@@ -13,6 +13,7 @@ const axiosInstance = axios.create({
   },
 });
 
+//axios instance for image upload
 
 // Add a request interceptor to include the Authorization header
 axiosInstance.interceptors.request.use(

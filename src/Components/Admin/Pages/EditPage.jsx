@@ -4,7 +4,7 @@ import axiosInstance from '../../../api/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function EditPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
 
   const [editorOutput, setEditorOutput] = useState('');
@@ -19,8 +19,9 @@ export default function EditPage() {
 
   useEffect(() => {
     const fetchPageData = async () => {
+      console.log(slug)
         try{
-          const res = await axiosInstance.get('/api/pages/'+id);
+          const res = await axiosInstance.get('/api/pages/'+slug);
           if(res.data){
             const {title, content} = res.data;
             setInitialContent(content)
@@ -36,7 +37,7 @@ export default function EditPage() {
     };
 
     fetchPageData();
-  }, [id]);
+  }, [slug]);
 
   useEffect(() => {
     if (error || message) {
@@ -58,12 +59,11 @@ export default function EditPage() {
     };
 
     try {
-      await axiosInstance.put(`/api/pages/${id}`, data);
+      await axiosInstance.put(`/api/pages/${slug}`, data);
       setMessage('Page updated successfully');
       navigate('/dashboard/pages');
     } catch (error) {
-      setError('Something went wrong, please try again.');
-      console.error('Error:', error.response ? error.response.data : error.message);
+      setError( error.response ? error.response.data.error : error.message);
     }
   };
 

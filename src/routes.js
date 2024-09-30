@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
             element: <AddPage />
           },
           {
-            path: "edit/:id",
+            path: "edit/:slug",
             element: <EditPage />
           }
         ]

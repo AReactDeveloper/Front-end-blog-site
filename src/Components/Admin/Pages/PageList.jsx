@@ -16,7 +16,7 @@ export default function PageList() {
 
   useEffect(()=>{
     getPages()
-  },[])
+  },[pages])
 
   useEffect(()=>{
       setInterval(() => {
@@ -64,8 +64,8 @@ export default function PageList() {
                 <td>{title}</td>
                 <td>{new Date(created_at).toLocaleDateString()}</td>
                 <td className='actions'>
-                  <Link className='fill-green' to={`/dashboard/pages/view/${id}`}><IoEyeSharp /></Link>
-                  <Link to={`/dashboard/pages/edit/${id}`} className='fill-blue'><MdEdit /></Link>
+                  <Link target='_blank' className='fill-green' to={`/page/${slug}`}><IoEyeSharp /></Link>
+                  <Link to={`/dashboard/pages/edit/${slug}`} className='fill-blue'><MdEdit /></Link>
                   <a onClick={() => handleDelete(id)} className='fill-red'><FaTrash /></a>
                 </td>
               </tr>
